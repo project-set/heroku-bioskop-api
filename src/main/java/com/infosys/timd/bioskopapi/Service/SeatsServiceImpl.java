@@ -23,43 +23,22 @@ public class SeatsServiceImpl implements SeatsService {
     }
 
     public List<Seats> findAllseats() {
-
-        List<Seats> optionalSeats = seatRepository.findAll();
-        if (optionalSeats.isEmpty()){
-            throw new ResourceNotFoundException("table seats have not value");
-        }
         return seatRepository.findAll();
     }
 
     public Optional<Seats> findbyid(Long id){
-
-        Optional<Seats> optionalSeats = seatRepository.findById(id);
-        if (optionalSeats.isEmpty()){
-            throw new ResourceNotFoundException(" Seats not Exist with id :" + id);
-        }
         return seatRepository.findById(id);
     }
 
     public Seats createseat(Seats seat) {
         return seatRepository.save(seat);}
 
-    public Seats updateseat(Seats seat, Long seatId) {
-        Optional<Seats> optionalSeats = seatRepository.findById(seatId);
-        if (optionalSeats.isEmpty()){
-            throw new ResourceNotFoundException("Films not exist with id" + seatId);
-        }
+    public Seats updateseat(Seats seat) {
         return seatRepository.save(seat);
     }
 
-
-    public void deleteseat(Long seatId){
-        Optional<Seats> optionalSeats = seatRepository.findById(seatId);
-        if (optionalSeats.isEmpty()){
-            throw new ResourceNotFoundException("Seats not exist with id :" + seatId);
-        }
-        Seats seats = seatRepository.getReferenceById(seatId);
-        this.seatRepository.delete(seats);
-
+    public void deleteseat(Seats seat){
+        seatRepository.delete(seat);
     }
 
     @Override

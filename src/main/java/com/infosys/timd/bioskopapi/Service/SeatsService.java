@@ -14,8 +14,8 @@ public interface SeatsService {
     List<Seats> findAllseats();
     Optional<Seats> findbyid(Long id);
     Seats createseat(Seats seat);
-    Seats updateseat(Seats seat, Long seatId);
-    void deleteseat(Long seatId);
+    Seats updateseat(Seats seat);
+    void deleteseat(Seats seat);
     Seats getReferenceById (Long id);
     List<Seats> getSeatAvailable(Integer isAvailable);
 }
