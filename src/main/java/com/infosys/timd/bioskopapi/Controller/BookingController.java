@@ -26,16 +26,21 @@ public class BookingController {
     private static final Logger logger = LogManager.getLogger(BookingController.class);
     private static final String Line = "====================";
     private BookingService bookingService;
+    private ScheduleService scheduleService;
+    private SeatsService seatsService;
 
 
-    //get ALL //logger aman
+    /**
+     *Get All booking from booking table
+     * throws ResourceNotFoundException if not found happened
+     */
     @GetMapping("/booking")
     public ResponseEntity<Object> findAll(){
         try {
             List<Booking> bookings = bookingService.getAll();
-            List<BookingResponseDTO> results = new ArrayList<>();
+            List<BookingResponseDTO> bookingmaps = new ArrayList<>();
+            logger.info(Line + " Logger Start Find All Booking " + Line);
             for (Booking dataresults:bookings){
-                logger.info(Line + " Logger Start Find All Booking " + Line);
                 logger.info("Booking id : "+dataresults.getBookingId()+
                         ", Title Film : "+dataresults.getSchedule().getFilms().getName()+
                         ", Status Playing : "+dataresults.getSchedule().getFilms().getIsPlaying()+
@@ -47,95 +52,116 @@ public class BookingController {
                         ", Show Start : "+dataresults.getSchedule().getShowStart()+
                         ", Show End : "+dataresults.getSchedule().getShowEnd());
                 BookingResponseDTO bookDTO = dataresults.convertToResponse();
-                results.add(bookDTO);
-                logger.info(Line + " Logger End Find All Booking " + Line);
+                bookingmaps.add(bookDTO);
             }
-            return ResponseHandler.generateResponse("Success Get All",HttpStatus.OK,results);
+            logger.info(Line + " Logger End Find All Booking " + Line);
+            return ResponseHandler.generateResponse("Success Get All",HttpStatus.OK,bookingmaps);
         }catch(ResourceNotFoundException e){
             logger.error(Line + " Logger Start Error " + Line);
-            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Table has no value"));
+            logger.error(e.getMessage());
             logger.error(Line + " Logger End Error " + Line);
             return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Table has no value");
         }
     }
 
-    //getById //logger aman
+    /**
+     *Get Booking by Booking id
+     * throws ResourceNotFoundException if data is not found
+     */
     @GetMapping("/booking/{id}")
     public ResponseEntity<Object> getBookingById(@PathVariable Long id){
         try {
             Optional<Booking> booking = bookingService.getBookingById(id);
             Booking bookingget = booking.get();
-            bookingget.convertToResponsePost();
-            logger.info(Line + " Logger Start Create Booking " + Line);
-            logger.info("Update Booking : " + bookingget);
-            logger.info(Line + " Logger End Create Booking " + Line);
-            return ResponseHandler.generateResponse("Success Get By Id",HttpStatus.OK,bookingget);
+            BookingResponseDTO result = bookingget.convertToResponse();
+            logger.info(Line + " Logger Start Get By id Booking " + Line);
+            logger.info("Update Booking : " + result);
+            logger.info(Line + " Logger End Get By id Booking " + Line);
+            return ResponseHandler.generateResponse("Success Get By Id",HttpStatus.OK,result);
         }catch(ResourceNotFoundException e){
             logger.error(Line + " Logger Start Error " + Line);
-            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data not found"));
+            logger.error(e.getMessage());
             logger.error(Line + " Logger End Error " + Line);
             return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data not found");
         }
     }
 
-    //update //logger aman
+    /**
+     * update booking
+     * throws ResourceNotFoundException if data not found
+     */
     @PutMapping("/booking/{id}")
     public ResponseEntity<Object> bookingupdate(@PathVariable Long id, @RequestBody BookingRequestDTO bookingRequestDTO){
         try {
+            if(bookingRequestDTO.getSch() == null || bookingRequestDTO.getUsr() == null){
+                throw new ResourceNotFoundException("Booking must have schedule id and user id");
+            }
             Booking booking = bookingRequestDTO.covertToEntitiy();
             booking.setBookingId(id);
             Booking bookingUpdate = bookingService.updateBooking(booking);
-            bookingUpdate.convertToResponse();
+            BookingResponseDTO results = bookingUpdate.convertToResponse();
             logger.info(Line + " Logger Start Update Booking " + Line);
             logger.info("Update Booking : " + bookingUpdate);
             logger.info(Line + " Logger End Update Booking " + Line);
-            return ResponseHandler.generateResponse("Success Update Booking",HttpStatus.CREATED,bookingUpdate);
-        }catch (ResourceNotFoundException e){
+            return ResponseHandler.generateResponse("Success Update Booking",HttpStatus.CREATED,results);
+        }catch (Exception e){
             logger.error(Line + " Logger Start Error " + Line);
-            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data not found"));
+            logger.error(e.getMessage());
             logger.error(Line + " Logger End Error " + Line);
-            return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data not found");
+            return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.BAD_REQUEST,"Bad Request");
         }
     }
-    //create
+    /**
+     *create new booking into booking table
+     * throws ResourceNotFoundException if bad request happened
+     */
     @PostMapping("/booking")
     public ResponseEntity<Object> bookingCreate(@RequestBody BookingRequestDTO bookingRequestDTO){
         try{
+            if(bookingRequestDTO.getSch() == null || bookingRequestDTO.getUsr() == null){
+                throw new ResourceNotFoundException("Booking must have schedule id and user id");
+            }
             Booking booking = bookingRequestDTO.covertToEntitiy();
             bookingService.createBooking(booking);
             BookingResponsePost result = booking.convertToResponsePost();
-            logger.info(Line + " Logger Start Update Booking " + Line);
+            logger.info(Line + " Logger Start Create Booking " + Line);
             logger.info("Create Booking : " + result);
-            logger.info(Line + " Logger End Update Booking " + Line);
+            logger.info(Line + " Logger End Create Booking " + Line);
             return ResponseHandler.generateResponse("Success Create Booking",HttpStatus.CREATED,result);
         }catch (Exception e){
             logger.error(Line + " Logger Start Error " + Line);
-            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.BAD_REQUEST,"Data not found"));
+            logger.error(e.getMessage());
             logger.error(Line + " Logger End Error " + Line);
             return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.BAD_REQUEST,"Failed Create Database");
         }
     }
 
-    //delete //logger aman
+    /**
+     * delete schedule by id
+     * throws ResourceNotFoundException if data is not found
+     */
     @DeleteMapping("/booking/{id}")
     public ResponseEntity<Object> deleteBooking(@PathVariable Long id){
         try {
             bookingService.deleteSBookingById(id);
             Boolean result = Boolean.TRUE;
-//            response.put("Booking deleted by ID", Boolean.TRUE);
             logger.info(Line + " Logger Start Delete Booking " + Line);
             logger.info("Success Delete Booking by ID :"+result);
             logger.info(Line + " Logger End Delete Booking " + Line);
-            return ResponseHandler.generateResponse("Success Delete Booking by ID",HttpStatus.NO_CONTENT,result);
+            return ResponseHandler.generateResponse("Success Delete Booking by ID",HttpStatus.OK,result);
         }catch(ResourceNotFoundException e){
             logger.error(Line + " Logger Start Error " + Line);
-            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data not found"));
+            logger.error(e.getMessage());
             logger.error(Line + " Logger End Error " + Line);
             return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data not found");
         }
     }
 
-    //custom //logger aman
+    /**
+     * custom Query Booking by filmname
+     * Query Find by Filmnme
+     *throws ResourceNotFoundException if film name is not found
+     */
     @PostMapping("/booking/Filmname")
     public ResponseEntity<Object> findBookingBySchdeuleFilmName(@RequestBody Films films){
         try {
@@ -147,17 +173,18 @@ public class BookingController {
             logger.info("Success Query By Filmname : " +bookingResponseDTOS);
             logger.info(Line+" Logger End Query By Film Name Booking "+Line);
             return ResponseHandler.generateResponse("Succes Query By Filmname",HttpStatus.OK,bookingResponseDTOS);
-        }catch (ResourceNotFoundException e){
+        }catch (Exception e){
             logger.error(Line + " Logger Start Error " + Line);
-            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data not found"));
+            logger.error(e.getMessage());
             logger.error(Line + " Logger End Error " + Line);
-            return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data not found");
+            return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.BAD_REQUEST,"Failed Query By Filename");
         }
 
     }
 
 
 }
+
 
 
 

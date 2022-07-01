@@ -22,3 +22,4 @@ public interface ScheduleService {
     List<Schedule> getScheduleByFilmNameLike(String name);
 
 }
+

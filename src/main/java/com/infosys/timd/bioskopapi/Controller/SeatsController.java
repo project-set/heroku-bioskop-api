@@ -12,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:8083")
 @RestController
@@ -27,54 +24,84 @@ public class SeatsController {
     @Autowired
     private SeatsService seatsService;
 
+    /**
+     * GET ALL
+     */
     @GetMapping("/seats")
     public ResponseEntity<Object> getSeats(){
         try{
             List<Seats> result = seatsService.findAllseats();
-            logger.info(Line);
-            logger.info("GetAll");
-            logger.info(seatsService.findAllseats());
-            logger.info(Line);
+            List<Map<String,Object>> maps = new ArrayList<>();
+            logger.info(Line + " Logger Start Get All Films " + Line);
+            for (Seats SeatAvailable:result ) {
+                Map<String, Object> seat = new HashMap<>();
+                logger.info(Line);
+                seat.put("No Kursi", SeatAvailable.getSeatNumber());
+                logger.info("No Kursi: " + SeatAvailable.getSeatNumber());
+                seat.put("Studio", SeatAvailable.getStudioName());
+                logger.info("Studio: " + SeatAvailable.getStudioName());
+                seat.put("Available", SeatAvailable.getIsAvailable());
+                logger.info("Available: " + SeatAvailable.getIsAvailable());
+                logger.info(Line);
+                maps.add(seat);
+            }
+            logger.info(Line +" Logger END Get All Films "+ Line);
             return ResponseHandler.generateResponse("Succesfully Read All Data Seats !", HttpStatus.OK, result);
         }
         catch (Exception e){
-            return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.MULTI_STATUS.OK, null);
+            logger.info("==================== Logger Start Get All Users     ====================");
+            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Table Has No Value!"));
+            logger.info("==================== Logger End Get All Users     ====================");
+            return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND, "Table has no value");
         }
 
     }
 
+    /**
+     * CREATE BY ID
+     */
     @PostMapping("/seats")
     public ResponseEntity<Object> createseats(@RequestBody Seats seat){
         try{
             Seats result = seatsService.createseat(seat);
-            logger.info(Line);
-            logger.info("Create");
+            logger.info(Line + " Logger Start Create " + Line);
             logger.info(seatsService.createseat(seat));
-            logger.info(Line);
-            return ResponseHandler.generateResponse("Succesfully Add Data Seats !", HttpStatus.OK, result);
+            logger.info(Line +" Logger END GCreate "+ Line);
+            return ResponseHandler.generateResponse("Succesfully Add Data Seats !", HttpStatus.CREATED, result);
         }catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS.OK, null);
+            logger.info("==================== Logger Start Create     ====================");
+            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Table Has No Value!"));
+            logger.info("==================== Logger End Create     ====================");
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.BAD_REQUEST, null);
         }
     }
 
+    /**
+     * GET SEAT BY ID
+     */
     @GetMapping("/seats/{seatId}")
     public ResponseEntity<Object> getseatsById(@PathVariable Long seatId){
         try{
             Optional<Seats> seats = seatsService.findbyid(seatId);
-            logger.info(Line);
-            logger.info("GetById");
-            logger.info(ResponseEntity.ok());
-            logger.info(Line);
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, seatId);
+            logger.info(Line + " Logger Start Create " + Line);
+            logger.info(seats);
+            logger.info(Line +" Logger END Create "+ Line);
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, seats);
         }catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            logger.info("==================== Logger Start Get By Id    ====================");
+            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Table Has No Value!"));
+            logger.info("==================== Logger End Get By Id      ====================");
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, "Data Not Found");
         }
         //Seats seat = seatsService.findbyid(seatId).orElseThrow(() ->
         //new ResourceNotFoundException("seats not exit with Seats_number:" + seatId));
     }
 
+    /**
+     * UPDATE BY ID
+     */
     @PutMapping("/seats/{seatId}")
-    public ResponseEntity<Object> updateSeats(@PathVariable Long seatId, @RequestBody Seats seatsDetails){
+    public ResponseEntity<Object> updateSeats(@PathVariable(value = "seatId") Long seatId,@RequestBody Seats seatsDetails){
         try{
             Seats seat = seatsService.findbyid(seatId).orElseThrow(() ->
                     new ResourceNotFoundException("seats not exit with Seats_number:" + seatsDetails));
@@ -83,32 +110,40 @@ public class SeatsController {
             seat.setStudioName(seatsDetails.getStudioName());
             seat.setSeatNumber(seatsDetails.getSeatNumber());
             seat.setIsAvailable(seatsDetails.getIsAvailable());
-
-            Seats updatedseats = seatsService.updateseat(seat);
-            logger.info(Line);
-            logger.info("Update");
-            logger.info(seatsService.updateseat(seat));
-            logger.info(Line);
-            return ResponseHandler.generateResponse("Success Update Seats",HttpStatus.OK, updatedseats);
+            //Optional<Seats> updatedseats = seatsService.updateseat(seat, seatId);
+            Seats updatedseats = seatsService.updateseat(seat, seatId);
+            logger.info(Line + " Logger Start Update " + Line);
+            logger.info(seatsService.updateseat(seat, seatId));
+            logger.info(Line +" Logger END Update "+ Line);
+            return ResponseHandler.generateResponse("Success Update Seats",HttpStatus.CREATED, updatedseats);
         }catch (Exception e){
-            return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.MULTI_STATUS,null);
+            logger.info("==================== Logger Start Update     ====================");
+            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Table Has No Value!"));
+            logger.info("==================== Logger End Update     ====================");
+            return ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"data not found");
         }
 
     }
 
+    /**
+     * DELETE BY ID
+     */
     @DeleteMapping("/seats/{seatId}")
     public ResponseEntity<Object> deleteseats(@PathVariable Long seatId){
         try{
             Optional<Seats> seats = seatsService.findbyid(seatId);
             Map<String, Boolean> respone = new HashMap<>();
             respone.put("deleted", Boolean.TRUE);
-            logger.info(Line);
-            logger.info("Delete");
-            logger.info(ResponseEntity.ok(respone));
-            logger.info(Line);
-            return ResponseHandler.generateResponse("Deleted! ", HttpStatus.OK, seatId);
+            ResponseEntity<Map<String, Boolean>> delete = ResponseEntity.ok(respone);
+            logger.info(Line + " Logger Start Delete " + Line);
+            logger.info(delete);
+            logger.info(Line +" Logger END Delete "+ Line);
+            return ResponseHandler.generateResponse("Deleted! ", HttpStatus.OK, delete);
         } catch (Exception e){
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            logger.info("==================== Logger Start Delete     ====================");
+            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Data Not Found!"));
+            logger.info("==================== Logger End Delete     ====================");
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, "Data Not Found");
         }
 
 //        Seats seat = seatsService.findbyid(seatId).orElseThrow(() ->
@@ -116,20 +151,39 @@ public class SeatsController {
 
     }
 
-    //custom challange 4 slide 8 nomor 3
+    /**
+     *
+     *  Seat Available
+     *  custom challange 4 slide 8 nomor 3 update map
+     */
     @PostMapping("/seats/isAvailable")
     public ResponseEntity<Object> findSeats(@RequestBody Seats seats){
         try{
             List<Seats> result = seatsService.getSeatAvailable(seats.getIsAvailable());
-            logger.info(Line);
-            logger.info("Query Seat");
-            logger.info(result);
-            logger.info(Line);
+            List<Map<String,Object>> maps = new ArrayList<>();
+            logger.info(Line + " Logger Start Get Available Seat " + Line);
+            for (Seats SeatAvailable:result ) {
+                Map<String, Object> seat = new HashMap<>();
+                logger.info(Line);
+                seat.put("No Kursi", SeatAvailable.getSeatNumber());
+                logger.info("No Kursi: " + SeatAvailable.getSeatNumber());
+                seat.put("Studio", SeatAvailable.getStudioName());
+                logger.info("Studio: " + SeatAvailable.getStudioName());
+                seat.put("Available", SeatAvailable.getIsAvailable());
+                logger.info("Available: " + SeatAvailable.getIsAvailable());
+                logger.info(Line);
+                maps.add(seat);
+            }
+            logger.info(Line + " Logger End Get Available Seat " + Line);
             return ResponseHandler.generateResponse("Successfully seats is Available ! ", HttpStatus.OK, result);
         } catch (Exception e){
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            logger.info("==================== Logger Start Get Available Seat     ====================");
+            logger.error(ResponseHandler.generateResponse(e.getMessage(),HttpStatus.NOT_FOUND,"Table Has No Value!"));
+            logger.info("==================== Logger End Get Available Seat     ====================");
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_FOUND, "Data Not Found");
         }
 
     }
 
 }
+
