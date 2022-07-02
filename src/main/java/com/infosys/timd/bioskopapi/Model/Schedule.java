@@ -19,7 +19,6 @@ import java.time.LocalTime;
 public class Schedule {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "schedule_id")
     private Integer scheduleId;
 

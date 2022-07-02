@@ -12,7 +12,6 @@ import javax.persistence.*;
 public class Seats {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seatId;
 
     @Column(name = "seat_number")

@@ -17,15 +17,14 @@ import javax.persistence.*;
 public class Films {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long filmId;
 
     private String name;
     private Integer isPlaying;
 
         public FilmsResponseDTO convertToResponse() {
-        return FilmsResponseDTO.builder().filmId(this.filmId)
-                .name(this.name)
+        return FilmsResponseDTO.builder().ID_Film(this.filmId)
+                .namaFilmTayang(this.name)
                 .isPlaying(this.isPlaying)
                 .build();
     }
