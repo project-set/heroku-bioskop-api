@@ -17,6 +17,7 @@ import javax.persistence.*;
 public class Films {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long filmId;
 
     private String name;

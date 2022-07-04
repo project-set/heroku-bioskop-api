@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Builder
 public class Booking {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
 
     @ManyToOne

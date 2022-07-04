@@ -13,13 +13,11 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class FilmsRequestDTO {
-    private Long ID_Film;
     private String name;
     private Integer isPlaying;
 
     public Films convertToEntity(){
         return Films.builder()
-                .filmId(this.ID_Film)
                 .name(this.name)
                 .isPlaying(this.isPlaying)
                 .build();
