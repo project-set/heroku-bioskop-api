@@ -9,10 +9,8 @@
 <div align="center">
     <div class="container-fluid text-center">
         <div><h1>View Film</h1></div>
-        <a th:href="@{/films}">Back to List All Films</a>
     </div>
-<br/><br/>
-<div>
+    <br/><br/>
     <table border="5" cellpadding="10">
         <thead>
         <th:block th:each="films : ${films}">
@@ -29,6 +27,9 @@
        </thead>
     </table>
     <br/><br/>
+    <div>
+        <a th:href="@{/films}">Back to List All Films</a>
+    </div>
     </div>
 </body>
 </html>

@@ -82,7 +82,7 @@ public class FilmsControllerMVC {
     public String deleteFilm(@PathVariable long filmId){
         filmsService.deleteFilmById(filmId);
 
-        return "films";
+        return "/films-details";
     }
 
 
@@ -92,7 +92,7 @@ public class FilmsControllerMVC {
         Films films = filmget.get();
         model.addAttribute("films", films);
 
-        return "/films";
+        return "/films-details";
     }
 }
 
