@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show All Films</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div><h1>Show All Films</h1></div>
+    <div class="m-4">
+        <a class="h3" th:href="@{/films/add}"> ADD New Films</a>
+    </div>
+    <div class="m-4">
+        <a class="h3" th:href="@{/films}"> All Films Menu</a>
+    </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Film Name</th>
+                <th>Status</th>
+                 <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="films : ${films}">
+                <tr>
+                    <td> [[${films.filmId}]] </td>
+                    <td> [[${films.name}]] </td>
+                    <td> [[${films.isPlaying}]] </td>
+                    <td>
+                        <a class="h4 mr-2"  th:href="@{'/films/edit/' + ${films.filmId}}">Edit</a>
+                        <a class="h4" th:href="@{'/films/delete/' + ${films.filmId}}">Delete</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${add} ? 'Create a Contact' : 'Edit a Contact'" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    <div align="center">
+        <div class="container-fluid text-center">
+        <h1 th:text="${add} ? 'Create a Film:' : 'Edit a Film:'" />
+        <a th:href="@{/films}">Back to All Films</a>
+     </div>
+    <br/><br/>
+   <div>
+    <form th:action="${add} ? @{/films/add} : @{/films/edit/{filmId}(filmId=${filmId})}"
+      th:object="${films}" method="POST">
+        <table boreder="5" cellpadding="10">
+          <tr th:if="${filmId}">
+            <td>ID</td>
+            <td th:utext="${filmId}">...</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" th:field="*{name}" /></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td><input type="number" th:field="*{isPlaying}" /></td>
+        </tr>
+    </table>
+    <input type="submit" th:value="${add} ? 'Create' : 'Update'" />
+    </form>
+    </div>
+<br/>
+<!-- Check if errorMessage is not null and not empty -->
+<div th:if="${errorMessage}" th:utext="${errorMessage}" class="error" />
+</div>
+</body>
+</html>
