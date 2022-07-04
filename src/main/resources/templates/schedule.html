@@ -9,7 +9,7 @@
 <div class="container-fluid text-center">
     <div><h1>Manage Schedules</h1></div>
     <div class="m-4">
-        <a class="h3" th:href="@{/users/new}"> ADD New Schedules</a>
+        <a class="h3" th:href="@{/schedule/new}"> ADD New Schedules</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -25,27 +25,27 @@
                 <th>Studio Name</th>
                 <th>Seat Status</th>
                 <th>Date Show</th>
-                <th>Showw Start</th>
+                <th>Show Start</th>
                 <th>Show End</th>
                 <th>Price</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
-            <th:block th:each="schedule : ${schedules}">
+            <th:block th:each="schedules : ${schedules}">
                 <tr>
-                    <td> [[${schedule.scheduleId}]] </td>
-                    <td> [[${schedule.films.name}]] </td>
-                    <td> [[${schedule.seats.seatNumber}]] </td>
-                    <td> [[${schedule.seats.studioName}]] </td>
-                    <td> [[${schedule.seats.isAvailable}]] </td>
-                    <td> [[${schedule.dateShow}]] </td>
-                    <td> [[${schedule.showStart}]] </td>
-                    <td> [[${schedule.showEnd}]] </td>
-                    <td> [[${schedule.price}]] </td>
+                    <td> [[${schedules.scheduleId}]] </td>
+                    <td> [[${schedules.films.name}]] </td>
+                    <td> [[${schedules.seats.seatNumber}]] </td>
+                    <td> [[${schedules.seats.studioName}]] </td>
+                    <td> [[${schedules.seats.isAvailable}]] </td>
+                    <td> [[${schedules.dateShow}]] </td>
+                    <td> [[${schedules.showStart}]] </td>
+                    <td> [[${schedules.showEnd}]] </td>
+                    <td> [[${schedules.price}]] </td>
                     <td>
-                        <a class="h4 mr-2"  th:href="@{'/users/edit/' + ${schedule.scheduleId}}">Edit</a>
-                        <a class="h4" th:href="@{'/users/delete/' + ${schedule.scheduleId}}">Delete</a>
+                        <a class="h4 mr-2"  th:href="@{'/schedule/edit/' + ${schedules.scheduleId}}">Edit</a>
+                        <a class="h4" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">Delete</a>
                     </td>
                 </tr>
             </th:block>
