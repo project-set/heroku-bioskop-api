@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/teamC/v1/DTO")
+@RequestMapping("/teamD/v1")
 @AllArgsConstructor
 public class BookingController {
 

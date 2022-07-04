@@ -43,19 +43,11 @@ public class Schedule {
     @Column(name = "price")
     private Integer price;
 
-//    @CreationTimestamp
-//    @Column(nullable = false,updatable = false)
-//    private LocalDateTime createdAt;
-//
-//    @UpdateTimestamp
-//    private LocalDateTime updatedAt;
-
     public ScheduleResponseDTO convertToResponse(){
         return ScheduleResponseDTO.builder()
                 .scheduleId(this.scheduleId).films(this.films)
                 .seats(this.seats).dateShow(this.dateShow)
                 .showStart(this.showStart).showEnd(this.showEnd).price(this.price).build();
-//                .createdAt(this.createdAt).updatedAt(this.updatedAt).build();
     }
 
     public ScheduleResponseFilmSeatDTO convertToResponseFilmsSeat(){
@@ -67,10 +59,9 @@ public class Schedule {
                 .showStart(this.showStart)
                 .showEnd(this.showEnd)
                 .price(this.price).build();
-//                .updatedAt(this.updatedAt)
-//                .createdAt(this.createdAt)
 
     }
+
     public ScheduleResponseNameLikeDTO convertToResponseNameLike(){
         return ScheduleResponseNameLikeDTO.builder()
                 .filmName(this.getFilms().getName())
