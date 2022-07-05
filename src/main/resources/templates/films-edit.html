@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${add} ? 'Create A Film' : 'Edit A Film'" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">

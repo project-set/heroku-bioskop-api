@@ -70,7 +70,7 @@ public class ScheduleControllerMVC {
         return "redirect:/schedule";
     }
 
-    @PostMapping("/search")
+    @PostMapping("/schedule")
     public String search(Films film, Model model, String name) {
         if(name!=null) {
             List<Schedule> list = scheduleService.getScheduleByFilmNameLike(film.getName());
