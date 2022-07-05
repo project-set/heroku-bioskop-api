@@ -29,7 +29,7 @@
 <div class="container-fluid text-center">
     <div><h1>SHOW ALL BOOKINGS</h1></div>
     <div class="m-4">
-        <a class="h3" th:href="@{/booking/add}"> ADD New Booking</a>
+        <a class="h3" th:href="@{/booking/new}"> ADD New Booking</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -47,7 +47,7 @@
                 <th>Date Show</th>
                 <th>Show Start</th>
                 <th>Show End</th>
-<!--                <th>Choice</th>-->
+                <th>Choice</th>
             </tr>
             </thead>
             <tbody>
@@ -63,10 +63,10 @@
                     <td> [[${bookings.Schedule.showStart}]] </td>
                     <td> [[${bookings.Schedule.showEnd}]] </td>
 
-<!--                    <td>-->
-<!--                        <a class="h4 mr-2"  th:href="@{'/films/edit/' + ${bookings.bookingId}}">Pilih</a>-->
-<!--                        <a class="h4" th:href="@{'/films/delete/' + ${bookings.bookingId}}">Delete</a>-->
-<!--                    </td>-->
+                    <td>
+                        <a class="h4 mr-2"  th:href="@{'/booking/edit/' + ${bookings.bookingId}}">Pilih</a>
+                        <a class="h4" th:href="@{'/booking/delete/' + ${bookings.bookingId}}">Delete</a>
+                    </td>
                 </tr>
             </th:block>
             </tbody>
