@@ -8,16 +8,16 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class FilmsResponseDTO {
-    private Long ID_Film;
-    private String namaFilmTayang;
-    private Integer isPlaying;
 
+    private Long code;
+    private String title;
+    private Integer status;
     @Override
     public String toString() {
         return "FilmsResponseDTO{" +
-                "ID_Film=" + ID_Film +
-                ", namaFilmTayang='" + namaFilmTayang + '\'' +
-                ", isPlaying=" + isPlaying +
+                "code=" + code +
+                ", title='" + title + '\'' +
+                ", status=" + status +
                 '}';
     }
 
@@ -30,3 +30,5 @@ public class FilmsResponseDTO {
 //                '}';
 //    }
 }
+
+

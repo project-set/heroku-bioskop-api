@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Schedules</title>
+    <title>SHOW ALL BOOKINGS</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" />
 </head>
 <body>
@@ -24,53 +24,49 @@
         </div>
     </div>
 </nav>
+<br/><br/>
+<!--<div th:insert="fragments/header :: header">...</div>-->
 <div class="container-fluid text-center">
-    <div><h1>Manage Schedules</h1></div>
+    <div><h1>SHOW ALL BOOKINGS</h1></div>
     <div class="m-4">
-        <a class="h3" th:href="@{/schedule/new}"> ADD New Schedules</a>
+        <a class="h3" th:href="@{/booking/add}"> ADD New Booking</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
     </div>
-
-    <form th:action="@{/search}" method="post" class="mb-3">
-    <input type="text" name="name" th:value="${name}"  placeholder="Find by Film Name" size="50" >
-    <button type="submit" class="btn btn-info" >Search</button>
-    <button type="submit" class="btn btn-info" >Reset</button>
-    </form>
-
     <div>
         <table class="table table-bordered">
             <thead class="thead-dark">
             <tr>
-                <th>ID</th>
-                <th>Film Name</th>
-                <th>Seat Number</th>
-                <th>Studio Name</th>
-                <th>Seat Status</th>
+                <th>Kode Booking</th>
+                <th>Judul Film</th>
+                <th>Status Film</th>
+                <th>Studio</th>
+                <th>Nomor Kursi</th>
+                <th>Price</th>
                 <th>Date Show</th>
                 <th>Show Start</th>
                 <th>Show End</th>
-                <th>Price</th>
-                <th></th>
+<!--                <th>Choice</th>-->
             </tr>
             </thead>
             <tbody>
-            <th:block th:each="schedules : ${schedules}">
+            <th:block th:each="bookings : ${bookings}">
                 <tr>
-                    <td> [[${schedules.scheduleId}]] </td>
-                    <td> [[${schedules.films.name}]] </td>
-                    <td> [[${schedules.seats.seatNumber}]] </td>
-                    <td> [[${schedules.seats.studioName}]] </td>
-                    <td> [[${schedules.seats.isAvailable}]] </td>
-                    <td> [[${schedules.dateShow}]] </td>
-                    <td> [[${schedules.showStart}]] </td>
-                    <td> [[${schedules.showEnd}]] </td>
-                    <td> [[${schedules.price}]] </td>
-                    <td>
-                        <a class="h4 mr-2"  th:href="@{'/schedule/edit/' + ${schedules.scheduleId}}">Edit</a>
-                        <a class="h4" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">Delete</a>
-                    </td>
+                    <td> [[${bookings.bookingId}]] </td>
+                    <td> [[${bookings.Schedule.Films.Name}]] </td>
+                    <td> [[${bookings.Schedule.Films.isPlaying}]] </td>
+                    <td> [[${bookings.Schedule.Seats.studioName}]] </td>
+                    <td> [[${bookings.Schedule.Seats.seatId}]] </td>
+                    <td> [[${bookings.Schedule.price}]] </td>
+                    <td> [[${bookings.Schedule.dateShow}]] </td>
+                    <td> [[${bookings.Schedule.showStart}]] </td>
+                    <td> [[${bookings.Schedule.showEnd}]] </td>
+
+<!--                    <td>-->
+<!--                        <a class="h4 mr-2"  th:href="@{'/films/edit/' + ${bookings.bookingId}}">Pilih</a>-->
+<!--                        <a class="h4" th:href="@{'/films/delete/' + ${bookings.bookingId}}">Delete</a>-->
+<!--                    </td>-->
                 </tr>
             </th:block>
             </tbody>

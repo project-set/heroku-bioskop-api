@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Films</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" />
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">BIOSKOP API</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">TEAM D</span>
+            </button>
+        </div>
+        <div class="navbar-header">
+
+            <a class="navbar-brand" th:href="@{/home}">Home</a>
+            <a class="navbar-brand" th:href="@{/films}">Film</a>
+            <a class="navbar-brand" th:href="@{/booking}">Booking</a>
+            <a class="navbar-brand" th:href="@{/schedule}">Schedule</a>
+            <a class="navbar-brand" th:href="@{/users}">User</a>
+            <a class="navbar-brand" th:href="@{/seats}">Seat</a>
+        </div>
+    </div>
+</nav>
+<div align="center">
+    <div class="container-fluid text-center">
+        <div><h1>View Film</h1></div>
+    </div>
+    <br/><br/>
+    <table border="5" cellpadding="10">
+        <thead>
+        <th:block th:each="films : ${films}">
+        <tr>
+            <th>ID</th>
+            <td> [[${films.filmId}]] </td>
+        </tr>
+            <th>Name</th>
+            <td> [[${films.name}]] </td>
+        <tr>
+            <th>Status</th>
+            <td> [[${films.isPlaying}]] </td>
+        </tr>
+       </thead>
+    </table>
+    <br/><br/>
+    <div>
+        <a th:href="@{/films}">Back to List All Films</a>
+    </div>
+    </div>
+</body>
+</html>

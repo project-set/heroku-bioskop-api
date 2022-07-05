@@ -25,8 +25,7 @@ import java.util.Map;
  * Edited By Rendra
  */
 @RestController
-//@Controller
-@RequestMapping("/teamC/v1/")
+@RequestMapping("/teamD/v1/")
 @AllArgsConstructor
 public class UserController {
 
