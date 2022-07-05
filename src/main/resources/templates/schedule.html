@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Schedules</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div><h1>Manage Schedules</h1></div>
+    <div class="m-4">
+        <a class="h3" th:href="@{/users/new}"> ADD New Schedules</a>
+    </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Film Name</th>
+                <th>Seat Number</th>
+                <th>Studio Name</th>
+                <th>Seat Status</th>
+                <th>Date Show</th>
+                <th>Showw Start</th>
+                <th>Show End</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="schedule : ${schedules}">
+                <tr>
+                    <td> [[${schedule.scheduleId}]] </td>
+                    <td> [[${schedule.films.name}]] </td>
+                    <td> [[${schedule.seats.seatNumber}]] </td>
+                    <td> [[${schedule.seats.studioName}]] </td>
+                    <td> [[${schedule.seats.isAvailable}]] </td>
+                    <td> [[${schedule.dateShow}]] </td>
+                    <td> [[${schedule.showStart}]] </td>
+                    <td> [[${schedule.showEnd}]] </td>
+                    <td> [[${schedule.price}]] </td>
+                    <td>
+                        <a class="h4 mr-2"  th:href="@{'/users/edit/' + ${schedule.scheduleId}}">Edit</a>
+                        <a class="h4" th:href="@{'/users/delete/' + ${schedule.scheduleId}}">Delete</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
