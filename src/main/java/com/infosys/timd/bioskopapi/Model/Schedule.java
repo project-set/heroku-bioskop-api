@@ -29,7 +29,7 @@ public class Schedule {
     @JoinColumn(name = "film_id")
     private Films films;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_show")
     private LocalDate dateShow;
 
