@@ -28,8 +28,8 @@
 <!--<div th:insert="fragments/header :: header">...</div>-->
 <div class="container-fluid text-center">
     <div><h1>SHOW ALL BOOKINGS</h1></div>
-    <div class="m-4">
-        <a class="h3" th:href="@{/booking/new}"> ADD New Booking</a>
+    <div style="padding-bottom:40px" class="btn-group" role="group" aria-label="Basic example">
+        <a th:href = "@{/booking/new}" class="btn btn-primary" > Create Booking</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -62,10 +62,9 @@
                     <td> [[${bookings.Schedule.dateShow}]] </td>
                     <td> [[${bookings.Schedule.showStart}]] </td>
                     <td> [[${bookings.Schedule.showEnd}]] </td>
-
                     <td>
-                        <a class="h4 mr-2"  th:href="@{'/booking/edit/' + ${bookings.bookingId}}">Pilih</a>
-                        <a class="h4" th:href="@{'/booking/delete/' + ${bookings.bookingId}}">Delete</a>
+                        <a type="button" class="btn btn-success" th:href="@{'/booking/edit/' + ${bookings.bookingId}}">Edit</a>
+                        <a type="button" class="btn btn-danger" th:href="@{'/booking/delete/' + ${bookings.bookingId}}">Delete</a>
                     </td>
                 </tr>
             </th:block>
