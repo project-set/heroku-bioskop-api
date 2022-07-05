@@ -1,5 +1,6 @@
 package com.infosys.timd.bioskopapi.ControllerMVC;
 
+
 import com.infosys.timd.bioskopapi.Controller.BookingController;
 import com.infosys.timd.bioskopapi.Model.Booking;
 import com.infosys.timd.bioskopapi.Model.Schedule;
@@ -19,6 +20,7 @@ public class BookingControllerMVC {
     private BookingService bookingService;
 
     @GetMapping("/booking")
+
     public String showBooking(Model model){
         List<Booking> bookings = bookingService.getAll();
         model.addAttribute("bookings", bookings);
@@ -41,4 +43,5 @@ public class BookingControllerMVC {
 //
 //        return "redirect:/booking";
 //    }
+
 }

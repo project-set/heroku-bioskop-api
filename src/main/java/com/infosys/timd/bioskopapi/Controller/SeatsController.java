@@ -131,6 +131,7 @@ public class SeatsController {
     @DeleteMapping("/seats/{seatId}")
     public ResponseEntity<Object> deleteseats(@PathVariable Long seatId){
         try{
+            Optional<Seats> seats = seatsService.findbyid(seatId);
             seatsService.deleteseat(seatId);
             Map<String, Boolean> respone = new HashMap<>();
             respone.put("deleted", Boolean.TRUE);
