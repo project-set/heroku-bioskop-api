@@ -1,5 +1,6 @@
 package com.infosys.timd.bioskopapi.Controller;
 
+import com.infosys.timd.bioskopapi.DTO.FilmsResponseDTO;
 import com.infosys.timd.bioskopapi.Model.*;
 import com.infosys.timd.bioskopapi.Exception.*;
 import com.infosys.timd.bioskopapi.Response.*;
@@ -11,6 +12,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,7 +24,6 @@ import java.util.Map;
 /***
  * Edited By Rendra
  */
-
 @RestController
 @RequestMapping("/teamD/v1/")
 @AllArgsConstructor
@@ -36,12 +38,11 @@ public class UserController {
      * @return
      */
     @GetMapping("/users")
-    public ResponseEntity <Object> getAllUser(){
+    public ResponseEntity <Object> getAllUser() {
         try {
             List <User> result = userServiceImplements.getAll();
             List<Map<String, Object>> maps = new ArrayList<>();
             logger.info("==================== Logger Start Get All Users     ====================");
-
             for(User userData : result){
                 Map<String, Object> user = new HashMap<>();
 
@@ -66,7 +67,6 @@ public class UserController {
             logger.info("==================== Logger End Get All Users     ====================");
             logger.info(" ");
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, "Table Has No Value!");
-
         }
     }
 

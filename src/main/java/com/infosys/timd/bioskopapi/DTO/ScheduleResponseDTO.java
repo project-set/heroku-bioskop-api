@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class ScheduleResponseDTO {
     private Films films;
     private Seats seats;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateShow;
 
 //    @JsonFormat(pattern = "HH-mm-ss")
