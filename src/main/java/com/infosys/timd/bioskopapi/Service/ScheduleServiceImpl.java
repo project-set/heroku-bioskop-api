@@ -7,6 +7,9 @@ import com.infosys.timd.bioskopapi.Response.*;
 import com.infosys.timd.bioskopapi.Service.*;
 import com.infosys.timd.bioskopapi.Repository.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     private ScheduleRepository scheduleRepository;
 
+//    Integer pageNumber = 1;
+//    Integer pageSize = 5;
+//    Pageable pageable = PageRequest.of(pageNumber, pageSize);
+
     //Get All
     public List<Schedule> getAll(){
         List<Schedule> optionalSchedule = this.scheduleRepository.findAll();
@@ -27,6 +34,14 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         return this.scheduleRepository.findAll();
     }
+
+//    public List<Schedule> getAll(){
+//        Page<Schedule> optionalSchedule = this.scheduleRepository.findAll(pageable);
+//        if(optionalSchedule.isEmpty()){
+//            throw new ResourceNotFoundException("Schedule not exist");
+//        }
+//        return this.scheduleRepository.findAll();
+//    }
 
     //Get By ID
     public Optional<Schedule> getScheduleById(Integer Id) throws ResourceNotFoundException{
@@ -84,6 +99,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         return this.scheduleRepository.getScheduleFilmsNameLike(name);
     }
-
+//    @Override
+//    public Page<Schedule> findPaginated(Integer pageNo, Integer pageSize) {
+//        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//        return this.scheduleRepository.findAll(pageable);
+//    }
 }
 

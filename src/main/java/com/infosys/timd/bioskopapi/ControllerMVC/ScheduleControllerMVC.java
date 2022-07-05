@@ -5,6 +5,7 @@ import com.infosys.timd.bioskopapi.Model.Films;
 import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Controller
 public class ScheduleControllerMVC {
@@ -28,6 +30,21 @@ public class ScheduleControllerMVC {
 
         return "schedule";
     }
+
+//    @GetMapping("/schedule")
+//    public String showSchedule(@PathVariable(value = "pageNo") Integer pageNo, Model model) {
+//        int pageSize = 5;
+//
+//        Page< Schedule > page = scheduleService.findPaginated(pageNo, pageSize);
+//        List<Schedule> schedules = scheduleService.getAll();
+//
+//        model.addAttribute("currentPage", pageNo);
+//        model.addAttribute("totalPages", page.getTotalPages());
+//        model.addAttribute("totalItems", page.getTotalElements());
+//        model.addAttribute("schedules", schedules);
+//
+//        return "schedule";
+//    }
 
     @GetMapping("/schedule/new")
     public String showNewSchedule(Model model) {
@@ -70,7 +87,7 @@ public class ScheduleControllerMVC {
         return "redirect:/schedule";
     }
 
-    @PostMapping("/schedule")
+    @PostMapping("/search")
     public String search(Films film, Model model, String name) {
         if(name!=null) {
             List<Schedule> list = scheduleService.getScheduleByFilmNameLike(film.getName());
@@ -78,6 +95,6 @@ public class ScheduleControllerMVC {
         }else {
             List<Schedule> list = scheduleService.getAll();
             model.addAttribute("list", list);}
-        return "schedule";
+        return "schedule_search";
     }
 }
