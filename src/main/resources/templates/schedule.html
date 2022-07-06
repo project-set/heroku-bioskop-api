@@ -5,11 +5,11 @@
     <title>Manage Schedules</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<body style="background: #212529;" class="text-light">
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">BIOSKOP API</a>
+            <a class="navbar-brand" href="#">BIOSKOP API TEAM D</a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">TEAM D</span>
             </button>
@@ -27,23 +27,25 @@
 <div class="container-fluid text-center">
     <div><h1>Manage Schedules</h1></div>
     <div class="m-4">
-        <a class="h3" th:href="@{/schedule/new}"> ADD New Schedules</a>
+        <a class="h3 btn btn-info" th:href="@{/schedule/new}"> ADD New Schedules</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
     </div>
 
-    <form th:action="@{/search}" method="post" class="mb-3">
-    <input type="text" name="name" th:value="${name}"  placeholder="Find by Film Name" size="50" >
-    <button type="submit" class="btn btn-info" >Search</button>
-    <button type="submit" class="btn btn-info" >Reset</button>
-    </form>
+    <div class="container-fluid col-md-6 text-center">
+        <form th:action="@{/search}" method="post" class="form-inline mb-3">
+            <input type="text" class="form-control form-control-lg col-sm-3 mb-1" name="name" th:value="${name}"  placeholder="Find by Film Name" size="50" >
+            <button type="submit" class="btn btn-info" >Search</button>
+            <button type="submit" class="btn btn-info" >Reset</button>
+        </form>
+    </div>
 
     <div>
-        <table class="table table-bordered">
-            <thead class="thead-dark">
+        <table class="table table-dark table-hover">
+            <thead>
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Film Name</th>
                 <th>Seat Number</th>
                 <th>Studio Name</th>
@@ -56,9 +58,9 @@
             </tr>
             </thead>
             <tbody>
-            <th:block th:each="schedules : ${schedules}">
+            <th:block th:each="schedules, iter : ${schedules}">
                 <tr>
-                    <td> [[${schedules.scheduleId}]] </td>
+                    <td scope="row" th:text="${iter.index + 1}"></td>
                     <td> [[${schedules.films.name}]] </td>
                     <td> [[${schedules.seats.seatNumber}]] </td>
                     <td> [[${schedules.seats.studioName}]] </td>
@@ -68,8 +70,8 @@
                     <td> [[${schedules.showEnd}]] </td>
                     <td> [[${schedules.price}]] </td>
                     <td>
-                        <a class="h4 mr-2"  th:href="@{'/schedule/edit/' + ${schedules.scheduleId}}">Edit</a>
-                        <a class="h4" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">Delete</a>
+                        <a class="h4 mr-2 btn btn-success"  th:href="@{'/schedule/edit/' + ${schedules.scheduleId}}">Edit</a>
+                        <a class="h4 btn btn-danger" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">Delete</a>
                     </td>
                 </tr>
             </th:block>

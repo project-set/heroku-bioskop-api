@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +25,7 @@ public class ScheduleControllerMVC {
     @GetMapping("/schedule")
     public String showSchedule(Model model) {
         List<Schedule> schedules = scheduleService.getAll();
+        Collections.reverse(schedules);
         model.addAttribute("schedules", schedules);
 
         return "schedule";
@@ -55,7 +55,7 @@ public class ScheduleControllerMVC {
     }
 
     @PostMapping("/schedule/save")
-    public String saveSchedule(Schedule schedules, RedirectAttributes ra){
+    public String saveSchedule(Model model, RedirectAttributes ra, @ModelAttribute Schedule schedules){
         scheduleService.createSchedule(schedules);
         ra.addFlashAttribute("message", "Schedule saved successfully");
 
