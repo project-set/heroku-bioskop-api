@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SHOW ALL BOOKINGS</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">BIOSKOP API</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">TEAM D</span>
+            </button>
+        </div>
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/home}">Home</a>
+            <a class="navbar-brand" th:href="@{/films}">Film</a>
+            <a class="navbar-brand" th:href="@{/booking}">Booking</a>
+            <a class="navbar-brand" th:href="@{/schedule}">Schedule</a>
+            <a class="navbar-brand" th:href="@{/users}">User</a>
+            <a class="navbar-brand" th:href="@{/seats}">Seat</a>
+        </div>
+    </div>
+</nav>
+<br/><br/>
+<!--<div th:insert="fragments/header :: header">...</div>-->
+<div class="container-fluid text-center">
+    <div><h1>SHOW ALL BOOKINGS</h1></div>
+    <div style="padding-bottom:40px" class="btn-group" role="group" aria-label="Basic example">
+        <a th:href = "@{/booking/new}" class="btn btn-primary" > Create Booking</a>
+    </div>
+    <div th:if="${message}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+    <div>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Kode Booking</th>
+                <th>Judul Film</th>
+                <th>Status Film</th>
+                <th>Studio</th>
+                <th>Nomor Kursi</th>
+                <th>Price</th>
+                <th>Date Show</th>
+                <th>Show Start</th>
+                <th>Show End</th>
+                <th>Choice</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="bookings : ${bookings}">
+                <tr>
+                    <td> [[${bookings.bookingId}]] </td>
+                    <td> [[${bookings.Schedule.Films.Name}]] </td>
+                    <td> [[${bookings.Schedule.Films.isPlaying}]] </td>
+                    <td> [[${bookings.Schedule.Seats.studioName}]] </td>
+                    <td> [[${bookings.Schedule.Seats.seatId}]] </td>
+                    <td> [[${bookings.Schedule.price}]] </td>
+                    <td> [[${bookings.Schedule.dateShow}]] </td>
+                    <td> [[${bookings.Schedule.showStart}]] </td>
+                    <td> [[${bookings.Schedule.showEnd}]] </td>
+                    <td>
+                        <a type="button" class="btn btn-success" th:href="@{'/booking/edit/' + ${bookings.bookingId}}">Edit</a>
+                        <a type="button" class="btn btn-danger" th:href="@{'/booking/delete/' + ${bookings.bookingId}}">Delete</a>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

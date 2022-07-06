@@ -16,7 +16,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:8083")
 @RestController
-@RequestMapping("/teamC/v1")
+@RequestMapping("/teamD/v1")
 public class SeatsController {
 
     private static final Logger logger = LogManager.getLogger(SeatsController.class);
@@ -132,6 +132,7 @@ public class SeatsController {
     public ResponseEntity<Object> deleteseats(@PathVariable Long seatId){
         try{
             Optional<Seats> seats = seatsService.findbyid(seatId);
+            seatsService.deleteseat(seatId);
             Map<String, Boolean> respone = new HashMap<>();
             respone.put("deleted", Boolean.TRUE);
             ResponseEntity<Map<String, Boolean>> delete = ResponseEntity.ok(respone);

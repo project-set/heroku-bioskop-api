@@ -1,15 +1,12 @@
 package com.infosys.timd.bioskopapi.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.infosys.timd.bioskopapi.DTO.*;
 import com.infosys.timd.bioskopapi.Model.*;
-import com.infosys.timd.bioskopapi.Exception.*;
-import com.infosys.timd.bioskopapi.Response.*;
-import com.infosys.timd.bioskopapi.Service.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -22,7 +19,7 @@ public class ScheduleResponseDTO {
     private Films films;
     private Seats seats;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateShow;
 
 //    @JsonFormat(pattern = "HH-mm-ss")

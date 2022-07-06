@@ -1,10 +1,10 @@
 package com.infosys.timd.bioskopapi.DTO;
 
 import com.infosys.timd.bioskopapi.Model.*;
-
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -27,6 +27,4 @@ public class ScheduleRequestDTO {
                 .showEnd(this.showEnd).price(this.price)
                 .build();
     }
-
-
 }
