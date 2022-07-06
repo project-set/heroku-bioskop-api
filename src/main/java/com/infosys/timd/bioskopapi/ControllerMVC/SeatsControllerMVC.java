@@ -38,13 +38,13 @@ public class SeatsControllerMVC {
     @PostMapping("/seats/save")
     public String createseat(Seats seat, RedirectAttributes ra) {
         seatsService.createseat(seat);
-        ra.addAttribute("message", "Seats has been added");
+        ra.addFlashAttribute("message", "Seats has been added");
 
         return "redirect:/seats";
     }
 
     @GetMapping("/seats/update/{seatId}")
-    public String showWditForm(@PathVariable("seatId") Long seatId, Model model, RedirectAttributes ra) {
+    public String showUpdateForm(@PathVariable("seatId") Long seatId, Model model, RedirectAttributes ra) {
         try {
             Optional<Seats> seat = seatsService.findbyid(seatId);
             model.addAttribute("seats", seat);
