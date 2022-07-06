@@ -9,10 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class FilmsControllerMVC {
@@ -22,6 +19,7 @@ public class FilmsControllerMVC {
     @GetMapping("/films")
     public String showFilm(Model model){
         List<Films> films = filmsService.findAllFilms();
+        Collections.reverse(films);
         model.addAttribute("films", films);
 
         return "films";

@@ -4,32 +4,57 @@
     <meta charset="UTF-8">
     <title>Manage Schedules</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <script src="https://kit.fontawesome.com/2e9f0c3a28.js" crossorigin="anonymous"></script>
 </head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<body class="bg-light text-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">BIOSKOP API</a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">TEAM D</span>
+                TEAM D
             </button>
         </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/home}">Home</a>
-            <a class="navbar-brand" th:href="@{/films}">Film</a>
-            <a class="navbar-brand" th:href="@{/booking}">Booking</a>
-            <a class="navbar-brand" th:href="@{/schedule}">Schedule</a>
-            <a class="navbar-brand" th:href="@{/users}">User</a>
-            <a class="navbar-brand" th:href="@{/seats}">Seat</a>
-        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/films}">Film</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/booking}">Booking</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/schedule}">Schedule</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/users}">User</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/seats}">Seat</a>
+            </li>
+        </ul>
     </div>
 </nav>
 <div class="container-fluid text-center">
     <div><h1>Manage Schedules</h1></div>
 
-    <div>
-        <table class="table table-bordered">
-            <thead class="thead-dark">
+    <div class="container-fluid col-md-6 text-center">
+        <form th:action="@{/search}" method="post" class="form-inline mb-3">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="name" th:value="${name}"  placeholder="Find by Film Name">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button type="submit" class="btn btn-info" ><i class="fa-solid fa-arrow-rotate-right"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <table class="table table-bordered table-hover">
+            <thead>
             <tr>
                 <th>Film Name</th>
                 <th>Studio Name</th>

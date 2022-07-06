@@ -4,46 +4,67 @@
     <meta charset="UTF-8">
     <title>Manage Schedules</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <script src="https://kit.fontawesome.com/2e9f0c3a28.js" crossorigin="anonymous"></script>
 </head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<body class="bg-light text-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">BIOSKOP API</a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">TEAM D</span>
+                TEAM D
             </button>
         </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" th:href="@{/home}">Home</a>
-            <a class="navbar-brand" th:href="@{/films}">Film</a>
-            <a class="navbar-brand" th:href="@{/booking}">Booking</a>
-            <a class="navbar-brand" th:href="@{/schedule}">Schedule</a>
-            <a class="navbar-brand" th:href="@{/users}">User</a>
-            <a class="navbar-brand" th:href="@{/seats}">Seat</a>
-        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/films}">Film</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/booking}">Booking</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/schedule}">Schedule</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/users}">User</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/seats}">Seat</a>
+            </li>
+        </ul>
     </div>
 </nav>
 <div class="container-fluid text-center">
     <div><h1>Manage Schedules</h1></div>
     <div class="m-4">
-        <a class="h3" th:href="@{/schedule/new}"> ADD New Schedules</a>
+        <a class="h3 btn btn-dark" th:href="@{/schedule/new}"> <i class="fa-solid fa-circle-plus"></i> ADD New Schedules</a>
     </div>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
     </div>
 
-    <form th:action="@{/search}" method="post" class="mb-3">
-    <input type="text" name="name" th:value="${name}"  placeholder="Find by Film Name" size="50" >
-    <button type="submit" class="btn btn-info" >Search</button>
-    <button type="submit" class="btn btn-info" >Reset</button>
-    </form>
+    <div class="container-fluid col-md-6 text-center">
+        <form th:action="@{/search}" method="post" class="form-inline mb-3">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="name" th:value="${name}"  placeholder="Find by Film Name">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button type="submit" class="btn btn-success" ><i class="fa-solid fa-arrow-rotate-right"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-    <div>
-        <table class="table table-bordered">
+
+    <div class="container">
+        <table class="table table-bordered table-hover">
             <thead class="thead-dark">
+
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Film Name</th>
                 <th>Seat Number</th>
                 <th>Studio Name</th>
@@ -56,9 +77,9 @@
             </tr>
             </thead>
             <tbody>
-            <th:block th:each="schedules : ${schedules}">
+            <th:block th:each="schedules, iter : ${schedules}">
                 <tr>
-                    <td> [[${schedules.scheduleId}]] </td>
+                    <td th:text="${iter.index + 1}"></td>
                     <td> [[${schedules.films.name}]] </td>
                     <td> [[${schedules.seats.seatNumber}]] </td>
                     <td> [[${schedules.seats.studioName}]] </td>
@@ -68,8 +89,12 @@
                     <td> [[${schedules.showEnd}]] </td>
                     <td> [[${schedules.price}]] </td>
                     <td>
-                        <a class="h4 mr-2"  th:href="@{'/schedule/edit/' + ${schedules.scheduleId}}">Edit</a>
-                        <a class="h4" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">Delete</a>
+                        <a class="h4 mr-2 btn btn-warning" th:href="@{'/schedule/edit/' + ${schedules.scheduleId}}">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <a onclick="myFunction()" class="h4 btn btn-danger" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
                     </td>
                 </tr>
             </th:block>
@@ -100,6 +125,19 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-
+<script>
+    function myFunction() {
+        var txt;
+        if (confirm("Anda Yakin Inging Menghapus INI???????")) {
+            txt = "You pressed OK!";
+        } else {
+            txt = "You pressed Cancel!";
+        }
+        document.getElementById("demo").innerHTML = txt;
+    }
+</script>
+<script type="script/javascript" th:src="@{/styles/js/popper.js}"></script>
+<script type="script/javascript" th:src="@{/styles/js/jquery.min.js}"></script>
+<script type="script/javascript" th:src="@{/styles/js/main.js}"></script>
 </body>
 </html>
