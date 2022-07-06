@@ -3,6 +3,7 @@ package com.infosys.timd.bioskopapi.ControllerMVC;
 import com.infosys.timd.bioskopapi.Exception.ResourceNotFoundException;
 import com.infosys.timd.bioskopapi.Model.Films;
 import com.infosys.timd.bioskopapi.Model.Schedule;
+import com.infosys.timd.bioskopapi.Service.FilmsService;
 import com.infosys.timd.bioskopapi.Service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ import java.util.Optional;
 public class ScheduleControllerMVC {
     @Autowired
     private ScheduleService scheduleService;
+    @Autowired
+    private FilmsService filmsService;
 
     @GetMapping("/schedule")
     public String showSchedule(Model model) {
@@ -48,6 +51,8 @@ public class ScheduleControllerMVC {
 
     @GetMapping("/schedule/new")
     public String showNewSchedule(Model model) {
+        List<Films> films = this.filmsService.findAllFilms();
+        model.addAttribute("films", films);
         model.addAttribute("schedules", new Schedule());
         model.addAttribute("pageTitle", "Add New Schedules");
 
@@ -66,6 +71,8 @@ public class ScheduleControllerMVC {
     public String showEditForm(@PathVariable("scheduleId") Integer id, Model model, RedirectAttributes ra) {
         try {
             Optional<Schedule> schedules = scheduleService.getScheduleById(id);
+            List<Films> films = this.filmsService.findAllFilms();
+            model.addAttribute("films", films);
             model.addAttribute("schedules", schedules);
             model.addAttribute("pageTitle", "Edit Schedule (ID: " + id + ")");
             return "schedule_form";
