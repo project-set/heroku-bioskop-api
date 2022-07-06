@@ -3,10 +3,12 @@ package com.infosys.timd.bioskopapi.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.infosys.timd.bioskopapi.DTO.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -27,6 +29,7 @@ public class Schedule {
     @JoinColumn(name = "film_id")
     private Films films;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_show")
     private LocalDate dateShow;
 
@@ -34,28 +37,22 @@ public class Schedule {
     @JoinColumn(name = "seat_id")
     private Seats seats;
 
+    @DateTimeFormat(pattern = "HH:mm:ss")
     @Column(name = "show_start")
     private LocalTime showStart;
 
+    @DateTimeFormat(pattern = "HH:mm:ss")
     @Column(name = "show_end")
     private LocalTime showEnd;
 
     @Column(name = "price")
     private Integer price;
 
-//    @CreationTimestamp
-//    @Column(nullable = false,updatable = false)
-//    private LocalDateTime createdAt;
-//
-//    @UpdateTimestamp
-//    private LocalDateTime updatedAt;
-
     public ScheduleResponseDTO convertToResponse(){
         return ScheduleResponseDTO.builder()
                 .scheduleId(this.scheduleId).films(this.films)
                 .seats(this.seats).dateShow(this.dateShow)
                 .showStart(this.showStart).showEnd(this.showEnd).price(this.price).build();
-//                .createdAt(this.createdAt).updatedAt(this.updatedAt).build();
     }
 
     public ScheduleResponseFilmSeatDTO convertToResponseFilmsSeat(){
@@ -67,10 +64,9 @@ public class Schedule {
                 .showStart(this.showStart)
                 .showEnd(this.showEnd)
                 .price(this.price).build();
-//                .updatedAt(this.updatedAt)
-//                .createdAt(this.createdAt)
 
     }
+
     public ScheduleResponseNameLikeDTO convertToResponseNameLike(){
         return ScheduleResponseNameLikeDTO.builder()
                 .filmName(this.getFilms().getName())

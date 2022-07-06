@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class SeatsControllerMVC {
     @GetMapping("/seats")
     public String showSeats(Model model) {
         List<Seats> seats = seatsService.findAllseats();
+        Collections.reverse(seats);
         model.addAttribute("seats", seats);
 
         return "seats";

@@ -52,7 +52,7 @@ public class SeatsServiceImpl implements SeatsService {
         return seatRepository.save(seat);
     }
 
-
+    @Override
     public void deleteseat(Long seatId){
         Optional<Seats> optionalSeats = seatRepository.findById(seatId);
         if (optionalSeats.isEmpty()){

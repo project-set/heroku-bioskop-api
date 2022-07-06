@@ -16,7 +16,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:8083")
 @RestController
-@RequestMapping("/teamC/v1")
+@RequestMapping("/teamD/v1")
 public class SeatsController {
 
     private static final Logger logger = LogManager.getLogger(SeatsController.class);

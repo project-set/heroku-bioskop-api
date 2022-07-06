@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/teamC/v1/DTO")
+@RequestMapping("/teamD/v1")
 @AllArgsConstructor
 public class ScheduleControllerDTO {
 
@@ -32,7 +32,7 @@ public class ScheduleControllerDTO {
     public ResponseEntity<Object> ScheduleList(){
         try {
             List<Schedule> result = scheduleService.getAll();
-            List<ScheduleResponseFilmSeatDTO> scheduleMaps = new ArrayList<>();
+            List<ScheduleResponseDTO> scheduleMaps = new ArrayList<>();
             logger.info(Line + "Logger Start Find All Schedule" + Line);
             for (Schedule dataResult:result){
                 Map<String,Object> schedule = new HashMap<>();
@@ -44,7 +44,7 @@ public class ScheduleControllerDTO {
                 logger.info("Film :"+dataResult.getFilms());
                 logger.info("Seats :"+dataResult.getSeats());
                 logger.info("================================");
-                ScheduleResponseFilmSeatDTO scheduleDTO = dataResult.convertToResponseFilmsSeat();
+                ScheduleResponseDTO scheduleDTO = dataResult.convertToResponse();
                 scheduleMaps.add(scheduleDTO);
             }
             logger.info(Line + "Logger End Find All Schedule" + Line);
@@ -128,7 +128,7 @@ public class ScheduleControllerDTO {
         try {
             Optional<Schedule> schedule = scheduleService.getScheduleById(id);
             Schedule scheduleget = schedule.get();
-            ScheduleResponseFilmSeatDTO result = scheduleget.convertToResponseFilmsSeat();
+            ScheduleResponseDTO result = scheduleget.convertToResponse();
             logger.info(Line + " Logger Start Find Schedule ById " + Line);
             logger.info("GetById");
             logger.info(result);

@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head style="background:white;">
     <meta charset="UTF-8">
     <title>Bioskop Api</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" />
 </head>
-<body style="background: #212529;">
+<body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header" id="content">
-            <a style="color:gold;" class="navbar-brand" href="#">BIOSKOP API</a>
+            <a class="navbar-brand" href="#">BIOSKOP API</a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">TEAM D</span>
             </button>
         </div>
         <div class="navbar-header">
-            <a class="btn btn-primary m-2" th:href="@{/home}">Home</a>
-            <a class="btn btn-primary m-2" th:href="@{/films}">Film</a>
-            <a class="btn btn-primary m-2" th:href="@{/booking}">Booking</a>
-            <a class="btn btn-primary m-2" th:href="@{/schedule}">Schedule</a>
-            <a class="btn btn-primary m-2" th:href="@{/users}">User</a>
-            <a class="btn btn-primary m-2" th:href="@{/seats}">Seat</a>
+            <a class="navbar-brand" th:href="@{/home}">Home</a>
+            <a class="navbar-brand" th:href="@{/films}">Film</a>
+            <a class="navbar-brand" th:href="@{/booking}">Booking</a>
+            <a class="navbar-brand" th:href="@{/schedule}">Schedule</a>
+            <a class="navbar-brand" th:href="@{/users}">User</a>
+            <a class="navbar-brand" th:href="@{/seats}">Seat</a>
 
         </div>
     </div>
 </nav>
 <br/><br/>
 <div class="container-fluid">
-    <div class="text-center"><h1 style="color:gold;">Manage Seats</h1></div>
+    <div class="text-center"><h2>Manage Seats</h2></div>
     <div>
-        <a class="btn btn-primary m-2" th:href="@{/seats/new}"> ADD Seats</a>
+        <a class="btn btn-primary" th:href="@{/seats/new}"> ADD Seats</a>
     </div>
     <div th:if="${message}" style="max-width: 300px; height: 50px; margin: 0 auto;" class="alert alert-success text-center">
         [[${message}]]
     </div>
 
     <div>
-        <table style="max-width: 1120px; margin: 0 auto;" class="text-center align-center table">
-            <thead class="thead-dark">
-            <tr style="color:gold;">
+        <table style="max-width: 1120px; margin: 0 auto; " class="text-center align-center table">
+            <thead style="thead-dark">
+            <tr>
                 <th>ID</th>
                 <th>Nomor Kursi</th>
                 <th>Nama Studio</th>
                 <th>Status Kursi</th>
-                <th></th>
+                <th>Fiture</th>
             </tr>
             </thead>
-            <tbody style="color:gold;">
+            <tbody>
             <th:block th:each="seats : ${seats}">
                 <tr>
                     <td> [[${seats.seatId}]] </td>
@@ -54,8 +54,8 @@
                     <td> Teater [[${seats.studioName}]] </td>
                     <td> [[${seats.isAvailable}]] </td>
                     <td>
-                        <a class="btn btn-primary m-2"  th:href="@{'/seats/update/' + ${seats.seatId}}">Update</a>
-                        <a class="btn btn-danger m-2" th:href="@{'/seats/delete/' + ${seats.seatId}}">Delete</a>
+                        <a class="btn btn-primary"  th:href="@{'/seats/update/' + ${seats.seatId}}">Update</a>
+                        <a class="btn btn-danger" th:href="@{'/seats/delete/' + ${seats.seatId}}">Delete</a>
                     </td>
                 </tr>
             </th:block>
