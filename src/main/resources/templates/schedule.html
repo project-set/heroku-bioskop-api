@@ -58,9 +58,9 @@
             </tr>
             </thead>
             <tbody>
-            <th:block th:each="schedules : ${schedules}">
+            <th:block th:each="schedules, iter : ${schedules}">
                 <tr>
-                    <td> # </td>
+                    <td scope="row" th:text="${iter.index + 1}"></td>
                     <td> [[${schedules.films.name}]] </td>
                     <td> [[${schedules.seats.seatNumber}]] </td>
                     <td> [[${schedules.seats.studioName}]] </td>
