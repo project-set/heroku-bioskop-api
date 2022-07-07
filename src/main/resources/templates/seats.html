@@ -27,11 +27,13 @@
     </div>
 </nav>
 <br/><br/>
-<div class="container-fluid">
-    <div class="text-center"><h2>MANAGE SEATS</h2></div>
+<div class="container-fluid" style="text-center">
+    <div class="text-center">
+        <h2>MANAGE SEATS</h2>
+    </div>
     <br>
-    <div>
-        <a style="float: right" class="btn btn-primary" th:href="@{/seats/new}"> ADD Seats</a>
+    <div class="container">
+        <a style="float:right; margin-right :40px;" class="btn btn-primary" th:href="@{/seats/new}"> ADD Seats</a>
     </div>
 <!--message added-->
     <div th:if="${message}" style="max-width: 300px; height: 50px; margin: 0 auto;" class="alert alert-success text-center">
