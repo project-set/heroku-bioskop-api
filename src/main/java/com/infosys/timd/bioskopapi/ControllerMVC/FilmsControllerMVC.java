@@ -19,15 +19,21 @@ public class FilmsControllerMVC {
 
     @GetMapping("/films")
     public String showFilm(Model model){
-//        int i;
         List<Films> films = filmsService.findAllFilms();
-//        List<Films> total = filmsService.findAllFilms().size(i);
         Collections.reverse(films);
         model.addAttribute("films", films);
-//        model.addAttribute("totalItem", total);
 
         return "film";
     }
+
+//    @GetMapping("/films/{filmId}")
+//    public String detailFilm(Model model){
+//        List<Films> films = filmsService.findAllFilms();
+//        Collections.reverse(films);
+//        model.addAttribute("films", films);
+//
+//        return "film";
+//    }
 
 @GetMapping("/films/add")
     public String showAddFilm(Model model){
@@ -75,7 +81,6 @@ public class FilmsControllerMVC {
         }catch(Exception e){
             String errorMessage = e.getMessage();
             model.addAttribute("errorMessage", errorMessage);
-
             model.addAttribute("add", true);
             return "redirect:/films";
         }
