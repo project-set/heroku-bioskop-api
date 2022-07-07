@@ -71,16 +71,16 @@ public class SeatsControllerMVC {
         return "redirect:/seats";
     }
 
-    @PostMapping("/search")
-    public String search(Seats seats, Model model, Integer isAvailable) {
-        if (isAvailable != null) {
-            List<Seats> optionalSeats = seatsService.getSeatAvailable(isAvailable);
-            model.addAttribute("seats", optionalSeats);
-        } else {
-            List<Seats> seat = seatsService.findAllseats();
-            model.addAttribute("seats", seat);
-
-        } return "seats_search";
-    }
+//    @PostMapping("/search")
+//    public String search(Seats seats, Model model, Integer isAvailable) {
+//        if (isAvailable != null) {
+//            List<Seats> optionalSeats = seatsService.getSeatAvailable(isAvailable);
+//            model.addAttribute("seats", optionalSeats);
+//        } else {
+//            List<Seats> seat = seatsService.findAllseats();
+//            model.addAttribute("seats", seat);
+//
+//        } return "seats_search";
+//    }
 }
 

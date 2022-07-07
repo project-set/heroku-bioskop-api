@@ -89,21 +89,31 @@ public class FilmsControllerMVC {
         return "redirect:/films";
     }
 
+//    @GetMapping("films/search")
+//    public String searchPlaying(Model model,Integer isPlaying){
+////        List<Films> films = filmsService.getByIsPlaying(isPlaying);
+//        try {
+//            List<Films> list = filmsService.getByIsPlaying(isPlaying);
+//            if(isPlaying==1){
+//                model.addAttribute("films", list);
+//            }
+//        }catch (Exception e){
+//            String errorMessage = e.getMessage();
+//            model.addAttribute("errorMessage", errorMessage);
+//
+//            model.addAttribute("add", true);
+//
+//        }
+//        return "films_search";
+//    }
+
     @GetMapping("films/search")
     public String searchPlaying(Model model,Integer isPlaying){
-        List<Films> films = filmsService.getByIsPlaying(isPlaying);
-        try {
-            if(isPlaying==1){
-                List<Films> list = filmsService.getByIsPlaying(isPlaying);
-                model.addAttribute("films", list);
-            }
-        }catch (Exception e){
-            String errorMessage = e.getMessage();
-            model.addAttribute("errorMessage", errorMessage);
 
-            model.addAttribute("add", true);
+               List<Films> films = filmsService.getIsPlaying(isPlaying);
 
-        }
+                model.addAttribute("films", films);
+
         return "films_search";
     }
 }
