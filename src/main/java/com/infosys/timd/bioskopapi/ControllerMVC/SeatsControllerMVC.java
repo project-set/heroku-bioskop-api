@@ -1,5 +1,7 @@
 package com.infosys.timd.bioskopapi.ControllerMVC;
 
+import com.infosys.timd.bioskopapi.Model.Films;
+import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Model.Seats;
 import com.infosys.timd.bioskopapi.Service.SeatsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class SeatsControllerMVC {
     @GetMapping("/seats")
     public String showSeats(Model model) {
         List<Seats> seats = seatsService.findAllseats();
-        Collections.reverse(seats);
+        //Collections.reverse(seats);
         model.addAttribute("seats", seats);
 
         return "seats";
@@ -32,7 +34,7 @@ public class SeatsControllerMVC {
     @GetMapping("/seats/new")
     public String showNewForm(Model model) {
         model.addAttribute("seats", new Seats());
-        model.addAttribute("pageTitle", "Add New Seats");
+        model.addAttribute("pageTitle", "ADD NEW SEAT");
 
         return "seats_form";
     }
@@ -67,6 +69,18 @@ public class SeatsControllerMVC {
             ra.addFlashAttribute("message", e.getMessage());
         }
         return "redirect:/seats";
+    }
+
+    @PostMapping("/search")
+    public String search(Seats seats, Model model, Integer isAvailable) {
+        if (isAvailable != null) {
+            List<Seats> optionalSeats = seatsService.getSeatAvailable(isAvailable);
+            model.addAttribute("seats", optionalSeats);
+        } else {
+            List<Seats> seat = seatsService.findAllseats();
+            model.addAttribute("seats", seat);
+
+        } return "seats_search";
     }
 }
 
