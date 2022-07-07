@@ -2,6 +2,7 @@ package com.infosys.timd.bioskopapi.ControllerMVC;
 
 import com.infosys.timd.bioskopapi.Exception.ResourceNotFoundException;
 import com.infosys.timd.bioskopapi.Model.Films;
+import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Service.FilmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,39 +88,14 @@ public class FilmsControllerMVC {
         }
         return "redirect:/films";
     }
+
+    @PostMapping("films/search")
+    public String searchPlaying(Model model, Integer isPlaying){
+
+            List<Films> list = filmsService.getByIsPlaying(isPlaying);
+            model.addAttribute("list", list);
+
+        return "film_search";
+    }
 }
 
-//@GetMapping("/films/{filmId}")
-//    public String showFilmById(Model model, @PathVariable Long filmId){
-//        Optional<Films> filmget = filmsService.findbyId(filmId);
-//        Films films = filmget.get();
-//        model.addAttribute("films", films);
-//
-//        return "/films-details";
-//    }
-//    @GetMapping("/films/delete/{filmId}")
-//     public String showDeleteFilm(Model model, @PathVariable long filmId){
-//        Optional<Films> films = null;
-//        try {
-//            films = filmsService.findbyId(filmId);
-//        }catch (ResourceNotFoundException ex){
-//            model.addAttribute("error Message","Film not found");
-//        }
-//        model.addAttribute("add", false);
-//        model.addAttribute("films", films);
-//        return "films-details";
-//    }
-//
-//    @DeleteMapping("/films/delete/{filmId}")
-//    public String deleteFilmById(
-//            Model model, @PathVariable long filmId) {
-//        try {
-//            filmsService.deleteFilmById(filmId);
-//            Map<String, Boolean> response = new HashMap<>();
-//            return "redirect:/films";
-//        } catch (ResourceNotFoundException ex) {
-//            String errorMessage = ex.getMessage();
-//            model.addAttribute("errorMessage", errorMessage);
-//            return "films-details";
-//        }
-//    }
