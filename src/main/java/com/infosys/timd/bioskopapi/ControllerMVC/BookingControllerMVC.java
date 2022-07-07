@@ -46,6 +46,7 @@ public class BookingControllerMVC {
 
         return "redirect:/booking";
     }
+
     @GetMapping("/booking/edit/{bookingId}")
     public String showBookingEdit(@PathVariable("bookingId") long Id, Model model, RedirectAttributes ra) {
         try {
