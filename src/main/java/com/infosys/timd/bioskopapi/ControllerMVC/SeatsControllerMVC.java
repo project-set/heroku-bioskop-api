@@ -1,5 +1,7 @@
 package com.infosys.timd.bioskopapi.ControllerMVC;
 
+import com.infosys.timd.bioskopapi.Model.Films;
+import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Model.Seats;
 import com.infosys.timd.bioskopapi.Service.SeatsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,7 @@ public class SeatsControllerMVC {
     @GetMapping("/seats")
     public String showSeats(Model model) {
         List<Seats> seats = seatsService.findAllseats();
+        //Collections.reverse(seats);
         model.addAttribute("seats", seats);
 
         return "seats";
@@ -30,7 +34,7 @@ public class SeatsControllerMVC {
     @GetMapping("/seats/new")
     public String showNewForm(Model model) {
         model.addAttribute("seats", new Seats());
-        model.addAttribute("pageTitle", "Add New Seats");
+        model.addAttribute("pageTitle", "ADD NEW SEAT");
 
         return "seats_form";
     }
@@ -38,13 +42,13 @@ public class SeatsControllerMVC {
     @PostMapping("/seats/save")
     public String createseat(Seats seat, RedirectAttributes ra) {
         seatsService.createseat(seat);
-        ra.addAttribute("message", "Seats has been added");
+        ra.addFlashAttribute("message", "Seats has been added");
 
         return "redirect:/seats";
     }
 
     @GetMapping("/seats/update/{seatId}")
-    public String showWditForm(@PathVariable("seatId") Long seatId, Model model, RedirectAttributes ra) {
+    public String showUpdateForm(@PathVariable("seatId") Long seatId, Model model, RedirectAttributes ra) {
         try {
             Optional<Seats> seat = seatsService.findbyid(seatId);
             model.addAttribute("seats", seat);
@@ -65,6 +69,18 @@ public class SeatsControllerMVC {
             ra.addFlashAttribute("message", e.getMessage());
         }
         return "redirect:/seats";
+    }
+
+    @PostMapping("/search")
+    public String search(Seats seats, Model model, Integer isAvailable) {
+        if (isAvailable != null) {
+            List<Seats> optionalSeats = seatsService.getSeatAvailable(isAvailable);
+            model.addAttribute("seats", optionalSeats);
+        } else {
+            List<Seats> seat = seatsService.findAllseats();
+            model.addAttribute("seats", seat);
+
+        } return "seats_search";
     }
 }
 
