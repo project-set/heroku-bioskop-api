@@ -18,4 +18,5 @@ public interface SeatsService {
     void deleteseat(Long seatId);
     Seats getReferenceById (Long id);
     List<Seats> getSeatAvailable(Integer isAvailable);
+    List<Seats> getSeatAvailableNew(Integer isAvailable);
 }
