@@ -33,8 +33,7 @@
         </div>
     <br/><br/>
    <div>
-    <form th:action="${add} ? @{/films/add} : @{/films/edit/{filmId}(filmId=${filmId})}"
-      th:object="${films}" method="POST">
+    <form th:action="${add} ? @{/films/add} : @{/films/edit/{filmId}(filmId=${filmId})}" th:object="${films}" method="POST">
         <table border="5" cellpadding="10">
           <tr th:if="${filmId}">
             <td>ID</td>
