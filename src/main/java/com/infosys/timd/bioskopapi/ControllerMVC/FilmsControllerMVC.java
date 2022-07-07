@@ -19,11 +19,14 @@ public class FilmsControllerMVC {
 
     @GetMapping("/films")
     public String showFilm(Model model){
+//        int i;
         List<Films> films = filmsService.findAllFilms();
+//        List<Films> total = filmsService.findAllFilms().size(i);
         Collections.reverse(films);
         model.addAttribute("films", films);
+//        model.addAttribute("totalItem", total);
 
-        return "films";
+        return "film";
     }
 
 @GetMapping("/films/add")
@@ -32,7 +35,7 @@ public class FilmsControllerMVC {
         model.addAttribute("add", true);
         model.addAttribute("films", films);
 
-    return "films_form";
+    return "film_form";
 }
  @PostMapping("/films/add")
     public String addFilm(Model model,
@@ -58,7 +61,7 @@ public class FilmsControllerMVC {
         }
         model.addAttribute("add", false);
         model.addAttribute("films", films);
-        return "films_form";
+        return "film_form";
  }
 
  @PostMapping("/films/edit/{filmId}")
@@ -89,24 +92,6 @@ public class FilmsControllerMVC {
         return "redirect:/films";
     }
 
-//    @GetMapping("films/search")
-//    public String searchPlaying(Model model,Integer isPlaying){
-////        List<Films> films = filmsService.getByIsPlaying(isPlaying);
-//        try {
-//            List<Films> list = filmsService.getByIsPlaying(isPlaying);
-//            if(isPlaying==1){
-//                model.addAttribute("films", list);
-//            }
-//        }catch (Exception e){
-//            String errorMessage = e.getMessage();
-//            model.addAttribute("errorMessage", errorMessage);
-//
-//            model.addAttribute("add", true);
-//
-//        }
-//        return "films_search";
-//    }
-
     @GetMapping("films/search")
     public String searchPlaying(Model model,Integer isPlaying){
 
@@ -114,7 +99,7 @@ public class FilmsControllerMVC {
 
                 model.addAttribute("films", films);
 
-        return "films_search";
+        return "film_search";
     }
 }
 

@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymleaf.org">
 <head>
     <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SHOW ALL FILMS</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +25,7 @@
             <a class="navbar-brand" th:href="@{/films}">Film</a>
             <a class="navbar-brand" th:href="@{/booking}">Booking</a>
             <a class="navbar-brand" th:href="@{/schedule}">Schedule</a>
-            <a class="navbar-brand" th:href="@{/users}">User</a>
+            <a class="navbar-brand" th:href="@{/usersPage}">User</a>
             <a class="navbar-brand" th:href="@{/seats}">Seat</a>
         </div>
     </div>
@@ -42,7 +44,7 @@
                         </a>
                  </span>
             </div>
-              <div></div>
+
             <div  th:switch="${/films/search}" class="container my-5">
                 <span style="float: right">
                     <a href="/films/search" class="btn btn-outline-secondary">
