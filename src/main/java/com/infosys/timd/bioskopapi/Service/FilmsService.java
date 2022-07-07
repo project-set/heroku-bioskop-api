@@ -17,6 +17,7 @@ public interface FilmsService {
    Films updateFilm(Films films, Long filmId);
    void deleteFilmById(Long id);
    List<Films> getByIsPlaying(Integer isPlaying);
+   List<Films> getIsPlaying(Integer isPlaying);
 //   List<Films> getNamePriceStudio(String name);
    Films getReferenceById (Long id);
 
