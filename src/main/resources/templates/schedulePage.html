@@ -58,7 +58,7 @@
     </div>
     <div class="d-flex justify-content-center mt-md-5 mb-5">
         <img
-                src="/styles/cssandjs/images/logo.svg"
+                src="/styles/cssandjs/images/default-monochrome.svg"
                 alt="Logo"
                 width="140px"
                 height="40px"
@@ -165,11 +165,32 @@
             <div class="row px-1 mb-2 gap-5">
                 <!--               start card-->
                 <div class="col-xl-4 col-12 card debit">
-                    <img src="/styles/cssandjs/images/ic_card.svg" alt="Debit" width="54px" />
-                    <p class="number">•••• &nbsp;&nbsp; 2208 &nbsp;&nbsp; 1996</p>
-                    <div>
-                        <p class="fw-semibold m-0">Shayna Qowy</p>
-                        <p class="fw-light m-0">20/24</p>
+                    <p class="number">Add Schedule</p>
+                    <div class="buttons">
+                        <a th:href="@{/schedule/new}">
+                            <button class="blob-btn">
+                                Add Schedule
+                                <span class="blob-btn__inner">
+                          <span class="blob-btn__blobs">
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                          </span>
+                        </span>
+                            </button>
+                        </a>
+                        <br/>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                            <defs>
+                                <filter id="goo">
+                                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                                    <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                                </filter>
+                            </defs>
+                        </svg>
                     </div>
                 </div>
                 <!--                end card-->
@@ -183,12 +204,6 @@
             </div>
 
             <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-                <div class="m-4">
-                    <a class="h3 btn btn-dark" th:href="@{/schedule/new}"> <i class="fa-solid fa-circle-plus"></i> ADD New Schedules</a>
-                </div>
-                <div th:if="${message}" class="alert alert-success text-center">
-                    [[${message}]]
-                </div>
                 <!--            Start of Table-->
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="table-all">

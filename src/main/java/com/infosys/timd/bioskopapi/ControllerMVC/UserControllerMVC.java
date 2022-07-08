@@ -31,6 +31,11 @@ public class UserControllerMVC {
 //        model.addAttribute("listUsers", userServiceImplements.getAll());
         return findPaginated(1, model);
     }
+    @GetMapping("")
+    public String getAllUserIndex(Model model) {
+//        model.addAttribute("listUsers", userServiceImplements.getAll());
+        return findPaginated(1, model);
+    }
 
     @GetMapping("/newUserForm")
     public String newUserForm(Model model){
