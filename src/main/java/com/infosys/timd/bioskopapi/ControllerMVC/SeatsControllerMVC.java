@@ -21,9 +21,12 @@ public class SeatsControllerMVC {
 
     @GetMapping("/seats")
     public String showSeats(Model model) {
+        Integer totalSeats;
         List<Seats> seats = seatsService.findAllseats();
+        totalSeats = seats.size();
         Collections.reverse(seats);
         model.addAttribute("seats", seats);
+        model.addAttribute("totalSeats", totalSeats);
 
         return "seats";
     }
@@ -33,7 +36,7 @@ public class SeatsControllerMVC {
         model.addAttribute("seats", new Seats());
         model.addAttribute("pageTitle", "ADD NEW SEAT");
 
-        return "seats_form";
+        return "seats_forms";
     }
 
     @PostMapping("/seats/save")
@@ -51,7 +54,7 @@ public class SeatsControllerMVC {
             model.addAttribute("seats", seat);
             model.addAttribute("pageTitle", "Update Seats (ID: " + seatId + ")");
             ra.addFlashAttribute("message", "Data Modified");
-            return "seats_form";
+            return "seats_forms";
         } catch (Exception e) {
             ra.addFlashAttribute("message", e.getMessage());
 
@@ -77,7 +80,7 @@ public class SeatsControllerMVC {
 
         model.addAttribute("seats", seats);
 
-        return "seats_search";
+        return "seats_searchs";
     }
 
 //    pembatas

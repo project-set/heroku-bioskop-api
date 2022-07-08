@@ -128,21 +128,14 @@
                 </button>
             </div>
             <div class="d-flex align-items-center justify-content-end gap-4">
-                <input
-                        type="text"
-                        placeholder="Search Seats"
-                        class="search form-control"
-                />
-                <button
-                        class="btn btn-search d-flex justify-content-center align-items-center p-0"
-                        type="button"
-                >
-                    <img
+                <a href="/seats/search">
+                    <i class="btn btn-outline-secondary justify-content-center align-items-center p-0"
+                       type="button"> Search Available Seats <img
                             src="/styles/cssandjs/images/ic_search.svg"
                             width="20px"
                             height="20px"
-                    />
-                </button>
+                    /> </i>
+                </a>
                 <img
                         src="/styles/cssandjs/images/avatar.jpg"
                         alt="Photo Profile"
@@ -159,29 +152,50 @@
         <div class="information d-flex flex-column gap-5">
             <div class="row px-1 mb-2 gap-5">
                 <!--               start card-->
-<!--                <div class="col-xl-4 col-12 card debit">-->
-<!--                    <img src="/styles/cssandjs/images/ic_card.svg" alt="Debit" width="54px" />-->
-<!--                    <p class="number">•••• &nbsp;&nbsp; 2208 &nbsp;&nbsp; 1996</p>-->
-<!--                    <div>-->
-<!--                        <p class="fw-semibold m-0">Shayna Qowy</p>-->
-<!--                        <p class="fw-light m-0">20/24</p>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="col-xl-4 col-12 card debit">
+                    <p class="number">Add Seats</p>
+                    <div class="buttons">
+                        <a th:href="@{/seats/new}">
+                            <button class="blob-btn">
+                                Add Seats
+                                <span class="blob-btn__inner">
+                          <span class="blob-btn__blobs">
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                          </span>
+                        </span>
+                            </button>
+                        </a>
+                        <br/>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                            <defs>
+                                <filter id="goo">
+                                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                                    <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                                </filter>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
                 <!--                end card-->
                 <!--                start total user-->
                 <div class="col-xl-4 col-12 card balance">
                     <h2>Total Seats</h2>
                     <ion-icon name="person-outline" size="large"></ion-icon>
-                    <h2>[[${totalItems}]]</h2>
+                    <h2>[[${totalSeats}]]</h2>
                 </div>
                 <!--                end total user-->
-                <!--                start chart-->
-<!--                <div class="col-xl-4 col-12 card donut-chart m-lg-0 p-2">-->
-<!--                    <div>-->
-<!--                        <canvas id="chart-budget" style="height: 226px; width: 100%">-->
-<!--                        </canvas>-->
-<!--                    </div>-->
-<!--                </div>-->
+<!--                                start chart-->
+                <div class="col-xl-4 col-12 card donut-chart m-lg-0 p-2">
+                    <div>
+                        <canvas id="chart-budget" style="height: 226px; width: 100%">
+                        </canvas>
+                    </div>
+                </div>
                 <!--                end chart-->
             </div>
 
