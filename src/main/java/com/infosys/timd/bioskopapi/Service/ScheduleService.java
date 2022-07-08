@@ -21,8 +21,7 @@ public interface ScheduleService {
     Schedule getReferenceById (Integer id);
     List<Schedule> getScheduleByFilmName(String name);
     List<Schedule> getScheduleByFilmNameLike(String name);
-
-//    Page<Schedule> findPaginated(Integer pageNo, Integer pageSize);
+    Page<Schedule> findPaginatedSchedule(int pageNo, int pageSize);
 
 }
 

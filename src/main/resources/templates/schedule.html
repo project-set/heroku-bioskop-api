@@ -29,7 +29,7 @@
                 <a class="nav-link" th:href="@{/schedule}">Schedule</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/users}">User</a>
+                <a class="nav-link" th:href="@{/usersPage}">User</a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/seats}">Seat</a>
@@ -92,7 +92,7 @@
                         <a class="h4 mr-2 btn btn-warning" th:href="@{'/schedule/edit/' + ${schedules.scheduleId}}">
                             <i class="fa-solid fa-pen"></i>
                         </a>
-                        <a class="h4 btn btn-danger" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">
+                        <a onclick="myFunction()" class="h4 btn btn-danger" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">
                             <i class="fa-solid fa-trash-can"></i>
                         </a>
                     </td>
@@ -125,6 +125,17 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
+<script>
+    function myFunction() {
+        var txt;
+        if (confirm("Anda Yakin Inging Menghapus INI???????")) {
+            txt = "You pressed OK!";
+        } else {
+            txt = "You pressed Cancel!";
+        }
+        document.getElementById("demo").innerHTML = txt;
+    }
+</script>
 <script type="script/javascript" th:src="@{/styles/js/popper.js}"></script>
 <script type="script/javascript" th:src="@{/styles/js/jquery.min.js}"></script>
 <script type="script/javascript" th:src="@{/styles/js/main.js}"></script>

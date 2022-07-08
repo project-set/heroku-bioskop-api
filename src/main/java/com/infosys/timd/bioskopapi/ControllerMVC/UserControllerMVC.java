@@ -1,6 +1,8 @@
 package com.infosys.timd.bioskopapi.ControllerMVC;
 
 import com.infosys.timd.bioskopapi.Exception.ResourceNotFoundException;
+import com.infosys.timd.bioskopapi.Model.Films;
+import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Model.User;
 import com.infosys.timd.bioskopapi.Repository.UserRepository;
 import com.infosys.timd.bioskopapi.Service.UserServiceImplements;
@@ -24,8 +26,13 @@ public class UserControllerMVC {
     private final UserServiceImplements userServiceImplements;
     private final UserRepository userRepository;
 
-    @GetMapping("/users")
+    @GetMapping("/usersPage")
     public String getAllUser(Model model) {
+//        model.addAttribute("listUsers", userServiceImplements.getAll());
+        return findPaginated(1, model);
+    }
+    @GetMapping("")
+    public String getAllUserIndex(Model model) {
 //        model.addAttribute("listUsers", userServiceImplements.getAll());
         return findPaginated(1, model);
     }
@@ -40,7 +47,7 @@ public class UserControllerMVC {
     @PostMapping ("/saveUser")
     public String saveUser(@ModelAttribute("user") User user){
         userServiceImplements.createUser(user);
-        return "redirect:/users";
+        return "redirect:/usersPage";
     }
 
     @GetMapping("/showFormForUpdate/{usersId}")
@@ -58,12 +65,12 @@ public class UserControllerMVC {
         } catch (ResourceNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/users";
+        return "redirect:/usersPage";
     }
 
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable (value = "pageNo") int pageNo, Model model){
-        int pageSize = 7;
+        int pageSize = 10;
 
         Page<User> page = userServiceImplements.findPaginated(pageNo, pageSize);
         List<User> listUsers = page.getContent();
@@ -72,6 +79,17 @@ public class UserControllerMVC {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listUsers", listUsers);
-        return "/users";
+        return "/usersPage";
+    }
+
+    @PostMapping("/searchName")
+    public String search(User user, Model model, String name) {
+        if(name!=null) {
+            List<User> list = userServiceImplements.getUserByNameLike(user.getUsername());
+            model.addAttribute("list", list);
+        }else {
+            List<User> list = userServiceImplements.getAll();
+            model.addAttribute("list", list);}
+        return "usersPage";
     }
 }
