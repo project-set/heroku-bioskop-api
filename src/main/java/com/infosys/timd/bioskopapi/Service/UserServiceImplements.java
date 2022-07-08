@@ -112,4 +112,13 @@ public class UserServiceImplements implements UserService{
         return this.userRepository.findAll(pageable);
     }
 
+    @Override
+    public List<User> getUserByNameLike(String name) {
+        List<User> getUserByNameLike = this.userRepository.getUserNameLike(name);
+        if (getUserByNameLike.isEmpty()){
+            throw new ResourceNotFoundException("Username " + name + " is not exist!");
+        }
+        return this.userRepository.getUserNameLike(name);
+    }
+
 }

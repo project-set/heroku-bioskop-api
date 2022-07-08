@@ -57,16 +57,13 @@
         </button>
     </div>
     <div class="d-flex justify-content-center mt-md-5 mb-5">
-        <a class="sidebar-brand" href="#">BIOSKOP API TEAM D</a>
+        <img
+                src="/styles/cssandjs/images/default-monochrome.svg"
+                alt="Logo"
+                width="140px"
+                height="140px"
+        />
     </div>
-<!--    <div class="d-flex justify-content-center mt-md-5 mb-5">-->
-<!--        <img-->
-<!--                src="/styles/cssandjs/images/logo.svg"-->
-<!--                alt="Logo"-->
-<!--                width="140px"-->
-<!--                height="40px"-->
-<!--        />-->
-<!--    </div>-->
     <div class="pt-2 d-flex flex-column gap-5">
         <div class="menu p-0">
             <p>Menu</p>
@@ -75,8 +72,8 @@
                 User
             </a>
             <a th:href="@{/films}" class="item-menu active">
-                <i class="fa fa-film fa-2x"> Film</i>
-
+                <i class="icon ic-trans"></i>
+                Film
             </a>
             <a th:href="@{/seats}" class="item-menu">
                 <i class="icon ic-msg"></i>
@@ -157,11 +154,32 @@
             <div class="row px-1 mb-2 gap-5">
                 <!--               start card-->
                 <div class="col-xl-4 col-12 card debit">
-                    <img src="/styles/cssandjs/images/ic_card.svg" alt="Debit" width="54px" />
-                    <p class="number">•••• &nbsp;&nbsp; 2208 &nbsp;&nbsp; 1996</p>
-                    <div>
-                        <p class="fw-semibold m-0">Shayna Qowy</p>
-                        <p class="fw-light m-0">20/24</p>
+                    <p class="number">Add Film</p>
+                    <div class="buttons">
+                        <a th:href="@{/films/add}">
+                            <button class="blob-btn">
+                                Add Film
+                                <span class="blob-btn__inner">
+                          <span class="blob-btn__blobs">
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                          </span>
+                        </span>
+                            </button>
+                        </a>
+                        <br/>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                            <defs>
+                                <filter id="goo">
+                                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                                    <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                                </filter>
+                            </defs>
+                        </svg>
                     </div>
                 </div>
 <!--                                end card-->
@@ -194,12 +212,7 @@
                             [[${message}]]
                         </div>
                         <div  th:switch="${/films/add}" class="container my-5">
-                 <span style="float: left">
-                        <a href="/films/add" class="btn btn-primary pull-right">
-                                <i class="fas fa-film"> ADD FILM</i>
-                        </a>
-                 </span>
-<!--                        </div>-->
+                 <!--                        </div>-->
 <!--                   <div  th:switch="${/films/search}" class="container my-5">-->
 <!--                        <span style="float: right">-->
 <!--                    <a href="/films/search" class="btn btn-outline-secondary">-->

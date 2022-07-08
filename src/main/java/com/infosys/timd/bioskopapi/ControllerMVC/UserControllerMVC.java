@@ -1,6 +1,8 @@
 package com.infosys.timd.bioskopapi.ControllerMVC;
 
 import com.infosys.timd.bioskopapi.Exception.ResourceNotFoundException;
+import com.infosys.timd.bioskopapi.Model.Films;
+import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Model.User;
 import com.infosys.timd.bioskopapi.Repository.UserRepository;
 import com.infosys.timd.bioskopapi.Service.UserServiceImplements;
@@ -73,5 +75,16 @@ public class UserControllerMVC {
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listUsers", listUsers);
         return "/usersPage";
+    }
+
+    @PostMapping("/searchName")
+    public String search(User user, Model model, String name) {
+        if(name!=null) {
+            List<User> list = userServiceImplements.getUserByNameLike(user.getUsername());
+            model.addAttribute("list", list);
+        }else {
+            List<User> list = userServiceImplements.getAll();
+            model.addAttribute("list", list);}
+        return "usersPage";
     }
 }

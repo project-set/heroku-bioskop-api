@@ -71,7 +71,7 @@ header p {
 }
 
 .debit {
-  background-image: url('../../assets/images/bg_card.png');
+  background-image: url('../../staic/styles/cssandjs/images/bg_card.png');
   color: #fff;
   display: flex;
   background-size: cover;
