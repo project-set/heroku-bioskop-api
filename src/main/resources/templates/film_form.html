@@ -9,7 +9,7 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>User Dashboard</title>
+    <title>Film Dashboard</title>
 
     <!-- Scrollbar Custom CSS -->
     <link
@@ -61,7 +61,7 @@
                 src="/styles/cssandjs/images/default-monochrome.svg"
                 alt="Logo"
                 width="140px"
-                height="140px"
+                height="40px"
         />
     </div>
     <div class="pt-2 d-flex flex-column gap-5">
@@ -71,9 +71,9 @@
                 <i class="icon ic-stats"></i>
                 User
             </a>
-            <a th:href="@{/films}" class="item-menu">
-                <i class="fa fa-film fa-2x"></i>
-                Film
+            <a th:href="@{/films}" class="item-menu active">
+                <i class="fa fa-film fa-2x"> Film</i>
+
             </a>
             <a th:href="@{/seats}" class="item-menu">
                 <i class="icon ic-msg"></i>
@@ -83,7 +83,7 @@
                 <i class="icon ic-stats"></i>
                 Schedule
             </a>
-            <a th:href="@{/booking}" class="item-menu active">
+            <a th:href="@{/booking}" class="item-menu">
                 <i class="icon ic-account"></i>
                 Booking
             </a>
@@ -128,14 +128,14 @@
                 </button>
             </div>
             <div class="d-flex align-items-center justify-content-end gap-4">
-                <!--                <a href="/films/search">-->
-                <!--                    <i class="btn btn-outline-secondary justify-content-center align-items-center p-0"-->
-                <!--                       type="button"> Search Playing Film <img-->
-                <!--                            src="/styles/cssandjs/images/ic_search.svg"-->
-                <!--                            width="20px"-->
-                <!--                            height="20px"-->
-                <!--                    /> </i>-->
-                <!--                </a>-->
+                <a href="/films/search">
+                    <i class="btn btn-outline-secondary justify-content-center align-items-center p-0"
+                       type="button"> Search Playing Film <img
+                            src="/styles/cssandjs/images/ic_search.svg"
+                            width="20px"
+                            height="20px"
+                    /> </i>
+                </a>
                 </button>
                 <img
                         src="/styles/cssandjs/images/avatar.jpg"
@@ -150,42 +150,44 @@
             <h3>FILM</h3>
             <p>Manage Film</p>
         </header>
-        <div class="container-fluid">
-            <div class="text-center">
-                <h1>Add New Booking</h1>
-            </div>
+        <div align="center">
+            <div class="container-fluid">
+                <div class="text-center">
+                    <h1 th:text="${add} ? 'Create A Film' : 'Edit A Film'" />
+                </div>
 
-            <form th:action="@{/booking/save}" method="post" th:object="${booking}"
-                  style="max-width: 700px; margin: 0 auto; ">
-                 <div class="border border-secondary rounded p-3">
-                    <div class="form-group row mt-3">
-                        <div class="col-sm-8">
-                            <input type="hidden" th:field="*{bookingId}" class="form-control" maxlength="45"/>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-3">
-                        <label class="col-sm-4 col-form-label">User Id:</label>
-                        <div class="col-sm-8">
-                            <input type="number" th:field="*{user}" class="form-control" maxlength="45"/>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-3">
-                        <label class="col-sm-4 col-form-label">scheduleId:</label>
-                        <div class="col-sm-8">
-                            <input type="number" th:field="*{schedule}" class="form-control" maxlength="45"/>
+                <br/><br/>
+                <form th:action="${add} ? @{/films/add} : @{/films/edit/{filmId}(filmId=${filmId})}"
+                      th:object="${films}" method="POST"
+                      style="max-width: 10000px; margin: 0 auto; ">
+                    <div class="container my-2">
+                        <table border="2" cellpadding="20">
+                            <tr th:if="${filmId}">
+                                <td>ID</td>
+                                <td th:utext="${filmId}">...</td>
+                            </tr>
+                            <tr>
+                                <td><b>Judul</b></td>
+                                <td><input type="text" th:field="*{name}" /></td>
+                            </tr>
+                            <tr>
+                                <td><b>Status</b></td>
+                                <td><input type="number" th:field="*{isPlaying}" /></td>
+                            </tr>
+                        </table>
+                        <br/><br/>
+                        <div>
+                            <tr>Masukkan angka 1 untuk status Film sedang tayang, atau masukkan angka 0 untuk FIlm yang belum tayang</tr>
                         </div>
                     </div>
                     <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-primary m-2">Save</button>
+                        <button type="submit" th:value="${add} ? 'Create' : 'Update'" class="btn btn-primary m-2">Save</button>
                         <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Cancel</button>
                     </div>
-                </div>
-            </form>
-
-        </div>
-
-        <!--            Enf of Table-->
-        </div>
+                </form>
+            </div>
+                <!--            Enf of Table-->
+            </div>
         </div>
 
     </section>
@@ -194,7 +196,7 @@
 <!-- Bootstrap JS -->
 <script type="text/javascript">
     function cancelForm(){
-        window.location = "[[@{/booking}]]"
+        window.location = "[[@{/films}]]"
     }
 </script>
 <script

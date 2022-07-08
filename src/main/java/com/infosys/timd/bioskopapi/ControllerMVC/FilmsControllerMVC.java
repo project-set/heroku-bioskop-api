@@ -18,12 +18,21 @@ public class FilmsControllerMVC {
     private FilmsService filmsService;
 
     @GetMapping("/films")
-    public String showFilm(Model model){
+    public String showFilm(Model model, Integer isPlaying){
+        Integer totalfilms;  Integer filmPlaying;
         List<Films> films = filmsService.findAllFilms();
+        totalfilms = films.size();
         Collections.reverse(films);
-        model.addAttribute("films", films);
 
-        return "films";
+        List<Films> filmsList = filmsService.getIsPlaying(isPlaying);
+        filmPlaying = filmsList.size();
+
+        model.addAttribute("films", films);
+        model.addAttribute("totalfilms", totalfilms);
+        model.addAttribute("playingfilms", filmPlaying);
+
+
+        return "film";
     }
 
 @GetMapping("/films/add")
@@ -32,7 +41,7 @@ public class FilmsControllerMVC {
         model.addAttribute("add", true);
         model.addAttribute("films", films);
 
-    return "films_form";
+    return "film_form";
 }
  @PostMapping("/films/add")
     public String addFilm(Model model,
@@ -58,7 +67,7 @@ public class FilmsControllerMVC {
         }
         model.addAttribute("add", false);
         model.addAttribute("films", films);
-        return "films_form";
+        return "film_form";
  }
 
  @PostMapping("/films/edit/{filmId}")
@@ -72,7 +81,6 @@ public class FilmsControllerMVC {
         }catch(Exception e){
             String errorMessage = e.getMessage();
             model.addAttribute("errorMessage", errorMessage);
-
             model.addAttribute("add", true);
             return "redirect:/films";
         }
@@ -89,11 +97,11 @@ public class FilmsControllerMVC {
         return "redirect:/films";
     }
 
-    @PostMapping("films/search")
-    public String searchPlaying(Model model, Integer isPlaying){
-
-            List<Films> list = filmsService.getByIsPlaying(isPlaying);
-            model.addAttribute("list", list);
+    @GetMapping("films/search")
+    public String searchPlaying(Model model,Integer isPlaying, Integer filmPlaying){
+               List<Films> films = filmsService.getIsPlaying(isPlaying);
+               Collections.reverse(films);
+               model.addAttribute("films", films);
 
         return "film_search";
     }
