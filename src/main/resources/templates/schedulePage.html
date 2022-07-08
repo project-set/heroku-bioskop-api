@@ -204,6 +204,9 @@
             </div>
 
             <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <div th:if="${message}" class="alert alert-success text-center">
+                    [[${message}]]
+                </div>
                 <!--            Start of Table-->
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="table-all">
