@@ -218,7 +218,7 @@
                             <th>Show Start</th>
                             <th>Show End</th>
                             <th>Price</th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -234,7 +234,7 @@
                                 <td> [[${schedules.showEnd}]] </td>
                                 <td> [[${schedules.price}]] </td>
                                 <td>
-                                    <a class="h4 mr-2 btn btn-warning" th:href="@{'/schedulePage/edit/' + ${schedules.scheduleId}}">
+                                    <a class="h4 btn btn-warning" th:href="@{'/schedulePage/edit/' + ${schedules.scheduleId}}">
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
                                     <a onclick="myFunction()" class="h4 btn btn-danger" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">
