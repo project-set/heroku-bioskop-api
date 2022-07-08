@@ -41,7 +41,7 @@ public class SeatsControllerMVC {
         seatsService.createseat(seat);
         ra.addFlashAttribute("message", "Seat Added");
 
-        return "redirect:/seats";
+        return "redirect:/seatsPage";
     }
 
     @GetMapping("/seats/update/{seatId}")
@@ -55,7 +55,7 @@ public class SeatsControllerMVC {
         } catch (Exception e) {
             ra.addFlashAttribute("message", e.getMessage());
 
-            return "redirect:/seats";
+            return "redirect:/seatsPage";
         }
     }
 
@@ -66,7 +66,7 @@ public class SeatsControllerMVC {
         } catch (Exception e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/seats";
+        return "redirect:/seatsPage";
     }
 
 
@@ -79,5 +79,20 @@ public class SeatsControllerMVC {
 
         return "seats_search";
     }
+
+//    pembatas
+
+    @GetMapping("/seatsPage")
+    public  String getAllSeats(Model model) {
+        List<Seats> seats = seatsService.findAllseats();
+        Collections.reverse(seats);
+        model.addAttribute("seats", seats);
+
+        return "seatsPage.html";
+//        return findPaginatedSeats(1, model);
+    }
+//
+//    @GetMapping("/oageSeat/{pageNo}")
+//    public String findPaginatedSeats(PathVariable(value = "pageNoSeat") M)
 }
 
