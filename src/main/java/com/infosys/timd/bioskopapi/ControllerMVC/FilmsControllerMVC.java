@@ -18,22 +18,22 @@ public class FilmsControllerMVC {
     private FilmsService filmsService;
 
     @GetMapping("/films")
-    public String showFilm(Model model){
+    public String showFilm(Model model, Integer isPlaying){
+        Integer totalfilms;  Integer filmPlaying;
         List<Films> films = filmsService.findAllFilms();
+        totalfilms = films.size();
         Collections.reverse(films);
+
+        List<Films> filmsList = filmsService.getIsPlaying(isPlaying);
+        filmPlaying = filmsList.size();
+
         model.addAttribute("films", films);
+        model.addAttribute("totalfilms", totalfilms);
+        model.addAttribute("playingfilms", filmPlaying);
+
 
         return "film";
     }
-
-//    @GetMapping("/films/{filmId}")
-//    public String detailFilm(Model model){
-//        List<Films> films = filmsService.findAllFilms();
-//        Collections.reverse(films);
-//        model.addAttribute("films", films);
-//
-//        return "film";
-//    }
 
 @GetMapping("/films/add")
     public String showAddFilm(Model model){
@@ -98,11 +98,10 @@ public class FilmsControllerMVC {
     }
 
     @GetMapping("films/search")
-    public String searchPlaying(Model model,Integer isPlaying){
-
+    public String searchPlaying(Model model,Integer isPlaying, Integer filmPlaying){
                List<Films> films = filmsService.getIsPlaying(isPlaying);
-
-                model.addAttribute("films", films);
+               Collections.reverse(films);
+               model.addAttribute("films", films);
 
         return "film_search";
     }

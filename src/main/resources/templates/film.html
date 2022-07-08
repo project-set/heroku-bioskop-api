@@ -139,16 +139,8 @@
                             height="20px"
                     /> </i>
                 </a>
-<!--                <button-->
-<!--                        class="btn btn-search d-flex justify-content-center align-items-center p-0"-->
-<!--                        type="button"-->
-<!--                ><img-->
-<!--                            src="/styles/cssandjs/images/ic_search.svg"-->
-<!--                            width="20px"-->
-<!--                            height="20px"-->
-<!--                    />-->
-                </button>
-                <img
+
+              <img
                         src="/styles/cssandjs/images/avatar.jpg"
                         alt="Photo Profile"
                         class="avatar"
@@ -163,24 +155,31 @@
         </header>
         <div class="information d-flex flex-column gap-5">
             <div class="row px-1 mb-2 gap-5">
-<!--                &lt;!&ndash;               start card&ndash;&gt;-->
-<!--                <div class="col-xl-4 col-12 card debit">-->
-<!--                    <img src="/styles/cssandjs/images/ic_card.svg" alt="Debit" width="54px" />-->
-<!--                    <p class="number">•••• &nbsp;&nbsp; 2208 &nbsp;&nbsp; 1996</p>-->
-<!--                    <div>-->
-<!--                        <p class="fw-semibold m-0">Shayna Qowy</p>-->
-<!--                        <p class="fw-light m-0">20/24</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                end card&ndash;&gt;-->
-<!--                &lt;!&ndash;                start total user&ndash;&gt;-->
-<!--                <div class="col-xl-4 col-12 card balance">-->
-<!--                    <h2>Total Films</h2>-->
-<!--                    <ion-icon name="person-outline" size="large"></ion-icon>-->
-<!--                    <h2>[[${totalItems}]]</h2>-->
-<!--                </div>-->
-<!--                &lt;!&ndash;                end total user&ndash;&gt;-->
-<!--                &lt;!&ndash;                start chart&ndash;&gt;-->
+                <!--               start card-->
+                <div class="col-xl-4 col-12 card debit">
+                    <img src="/styles/cssandjs/images/ic_card.svg" alt="Debit" width="54px" />
+                    <p class="number">•••• &nbsp;&nbsp; 2208 &nbsp;&nbsp; 1996</p>
+                    <div>
+                        <p class="fw-semibold m-0">Shayna Qowy</p>
+                        <p class="fw-light m-0">20/24</p>
+                    </div>
+                </div>
+<!--                                end card-->
+<!--                                start total user-->
+                <div class="col-xl-4 col-12 card balance">
+                    <h2>Total Films</h2>
+                    <ion-icon class="fa fa-film fa-4x"></ion-icon>
+                    <h2>[[${totalfilms}]]</h2>
+                </div>
+                <!--                end total user-->
+                <!--                start chart-->
+                <div class="col-xl-4 col-12 card balance">
+                    <h2>Film is playing</h2>
+                    <ion-icon class="fas fa-play fa-4x"></ion-icon>
+                    <h2>[[${playingfilms}]]</h2>
+                </div>
+                <!--                end total user-->
+                <!--                start chart-->
 <!--                <div class="col-xl-4 col-12 card donut-chart m-lg-0 p-2">-->
 <!--                    <div>-->
 <!--                        <canvas id="chart-budget" style="height: 226px; width: 100%">-->

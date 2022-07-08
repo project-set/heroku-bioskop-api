@@ -152,38 +152,60 @@
             <form th:object="${bookings}"
                   style="max-width: 700px; margin: 0 auto; ">
                 <div class="border border-secondary rounded p-3">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Nomor Kursi</th>
-                            <th>Judul Film</th>
-                            <th>Date Show</th>
-                            <th>Show Start</th>
-                            <th>Show End</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <th:block th:each="bookings, iter : ${bookings}">
-                        <tr>
-                                <td> [[${bookings.User.username}]] </td>
-                                <td> [[${bookings.Schedule.Seats.seatNumber}]] </td>
-                                <td> [[${bookings.Schedule.Films.Name}]] </td>
-                                <td> [[${bookings.Schedule.dateShow}]] </td>
-                                <td> [[${bookings.Schedule.showStart}]] </td>
-                                <td> [[${bookings.Schedule.showEnd}]] </td>
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-4 col-form-label">Nama :</label>
+                        <div class="col-sm-8">
+                            <tr>
+                            <td> [[${bookings.User.username}]] </td>
                             </tr>
-                        </th:>
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-4 col-form-label">Nomor Kursi :</label>
+                        <div class="col-sm-8">
+                            <tr>
+                                <td> [[${bookings.Schedule.Seats.seatNumber}]] </td>
+                            </tr>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-4 col-form-label">Judul Film :</label>
+                        <div class="col-sm-8">
+                            <tr>
+                                <td><b>[[${bookings.Schedule.Films.Name}]] </b></td>
+                            </tr>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-4 col-form-label">Date Show :</label>
+                        <div class="col-sm-8">
+                            <tr>
+                                <td><b>[[${bookings.Schedule.dateShow}]] </b></td>
+                            </tr>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-4 col-form-label">Show Start:</label>
+                        <div class="col-sm-8">
+                            <tr>
+                                <td><b>[[${bookings.Schedule.showStart}]] </b></td>
+                            </tr>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label class="col-sm-4 col-form-label">Show End:</label>
+                        <div class="col-sm-8">
+                            <tr>
+                                <td><b> [[${bookings.Schedule.showEnd}]] </b></td>
+                            </tr>
+                        </div>
+                    </div>
                     <div class="text-center mt-3">
                         <button type="button" class="btn btn-primary m-2">Print</button>
                         <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Cancel</button>
                     </div>
                 </div>
             </form>
-
         </div>
 
         <!--            Enf of Table-->
