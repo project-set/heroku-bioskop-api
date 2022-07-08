@@ -15,4 +15,5 @@ public interface UserService {
     User getReferenceById(Long users_Id);
     User getUserId(Long users_Id);
     Page<User> findPaginated(int pageNo, int pageSize);
+    List<User> getUserByNameLike(String name);
 }
