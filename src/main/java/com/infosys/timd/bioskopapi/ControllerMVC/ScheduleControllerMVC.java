@@ -5,6 +5,7 @@ import com.infosys.timd.bioskopapi.Model.Films;
 import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Service.FilmsService;
 import com.infosys.timd.bioskopapi.Service.ScheduleService;
+import com.infosys.timd.bioskopapi.Service.ScheduleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -24,30 +25,18 @@ public class ScheduleControllerMVC {
     private ScheduleService scheduleService;
     @Autowired
     private FilmsService filmsService;
+//    @Autowired
+//    private ScheduleServiceImpl scheduleServiceImpl;
 
-    @GetMapping("/schedule")
+    @GetMapping("/schedulePage")
     public String showSchedule(Model model) {
-        List<Schedule> schedules = scheduleService.getAll();
-        Collections.reverse(schedules);
-        model.addAttribute("schedules", schedules);
-
-        return "schedule";
-    }
-
-//    @GetMapping("/schedule")
-//    public String showSchedule(@PathVariable(value = "pageNo") Integer pageNo, Model model) {
-//        int pageSize = 5;
-//
-//        Page< Schedule > page = scheduleService.findPaginated(pageNo, pageSize);
 //        List<Schedule> schedules = scheduleService.getAll();
-//
-//        model.addAttribute("currentPage", pageNo);
-//        model.addAttribute("totalPages", page.getTotalPages());
-//        model.addAttribute("totalItems", page.getTotalElements());
+//        Collections.reverse(schedules);
 //        model.addAttribute("schedules", schedules);
-//
+        return findPaginatedSchedule(1, model);
+
 //        return "schedule";
-//    }
+    }
 
     @GetMapping("/schedule/new")
     public String showNewSchedule(Model model) {
@@ -64,10 +53,10 @@ public class ScheduleControllerMVC {
         scheduleService.createSchedule(schedules);
         ra.addFlashAttribute("message", "Schedule saved successfully");
 
-        return "redirect:/schedule";
+        return "redirect:/schedulePage";
     }
 
-    @GetMapping("/schedule/edit/{scheduleId}")
+    @GetMapping("/schedulePage/edit/{scheduleId}")
     public String showEditForm(@PathVariable("scheduleId") Integer id, Model model, RedirectAttributes ra) {
         try {
             Optional<Schedule> schedules = scheduleService.getScheduleById(id);
@@ -79,7 +68,7 @@ public class ScheduleControllerMVC {
         } catch (ResourceNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
 
-            return "redirect:/schedule";
+            return "redirect:/schedulePage";
         }
     }
 
@@ -91,7 +80,7 @@ public class ScheduleControllerMVC {
         } catch (ResourceNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/schedule";
+        return "redirect:/schedulePage";
     }
 
     @PostMapping("/search")
@@ -102,6 +91,21 @@ public class ScheduleControllerMVC {
         }else {
             List<Schedule> list = scheduleService.getAll();
             model.addAttribute("list", list);}
-        return "schedule_search";
+        return "scheduleSearchPage";
+    }
+
+    @GetMapping("/page/schedule/{pageNo}")
+    public String findPaginatedSchedule(@PathVariable (value = "pageNo") int pageNo, Model model){
+        int pageSize = 10;
+
+        Page<Schedule> page = scheduleService.findPaginatedSchedule(pageNo, pageSize);
+        List<Schedule> listSchdule = page.getContent();
+//        Collections.reverse(listSchdule);
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("listSchdule", listSchdule);
+        return "/schedulePage";
     }
 }

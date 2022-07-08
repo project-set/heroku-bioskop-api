@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="User Dashboard Page" />
+    <meta name="description" content="Schedule Dashboard Page" />
     <meta
             name="keywords"
             content="HTML, CSS, JavaScript, Bootstrap, Chart JS"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>User Dashboard</title>
+    <title>Schedule Dashboard</title>
 
     <!-- Scrollbar Custom CSS -->
     <link
@@ -31,10 +31,6 @@
             href="/styles/cssandjs/css/styles.css"
             type="text/css"
             media="screen"
-    />
-    <link
-            rel="stylesheet"
-            href="/styles/cssandjs/css/main.scss"
     />
 
     <!-- CDN Fontawesome -->
@@ -71,7 +67,7 @@
     <div class="pt-2 d-flex flex-column gap-5">
         <div class="menu p-0">
             <p>Daily Use</p>
-            <a th:href="@{/users}" class="item-menu active">
+            <a th:href="@{/usersPage}" class="item-menu">
                 <i class="icon ic-stats"></i>
                 User
             </a>
@@ -131,47 +127,50 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
-            <div class="d-flex align-items-center justify-content-end gap-4">
-                <input
-                        type="text"
-                        placeholder="Search User"
-                        class="search form-control"
-                        th:action="@{/searchName}" method="post"
-                        name="username" th:value="${username}"
-                />
-                <button
-                        class="btn btn-search d-flex justify-content-center align-items-center p-0"
-                        type="button"
-                >
-                    <img
-                            src="/styles/cssandjs/images/ic_search.svg"
-                            width="20px"
-                            height="20px"
+
+            <form th:action="@{/search}" method="post" class="form-inline mb-3">
+                <div class="d-flex align-items-center justify-content-end gap-4">
+                    <input
+                            type="text"
+                            name="name"
+                            placeholder="Search Schedule"
+                            class="search form-control"
+                            th:value="${name}"
                     />
-                </button>
-                <img
-                        src="/styles/cssandjs/images/avatar.jpg"
-                        alt="Photo Profile"
-                        class="avatar"
-                />
-            </div>
+                    <button
+                            class="btn btn-search d-flex justify-content-center align-items-center p-0"
+                            type="submit"
+                    >
+                        <img
+                                src="/styles/cssandjs/images/ic_search.svg"
+                                width="20px"
+                                height="20px"
+                        />
+                    </button>
+                    <img
+                            src="/styles/cssandjs/images/avatar.jpg"
+                            alt="Photo Profile"
+                            class="avatar"
+                    />
+                </div>
+            </form>
         </div>
     </nav>
     <section class="p-3">
         <header>
             <h3>Overview</h3>
-            <p>Manage User</p>
+            <p>Manage Schedule</p>
         </header>
         <div class="information d-flex flex-column gap-5">
             <div class="row px-1 mb-2 gap-5">
-<!--               start card-->
+                <!--               start card-->
                 <div class="col-xl-4 col-12 card debit">
-                    <p class="number">Add User</p>
+                    <p class="number">Add Schedule</p>
                     <div class="buttons">
-                        <a th:href="@{/newUserForm}">
-                        <button class="blob-btn">
-                            Add User
-                            <span class="blob-btn__inner">
+                        <a th:href="@{/schedule/new}">
+                            <button class="blob-btn">
+                                Add Schedule
+                                <span class="blob-btn__inner">
                           <span class="blob-btn__blobs">
                             <span class="blob-btn__blob"></span>
                             <span class="blob-btn__blob"></span>
@@ -179,7 +178,7 @@
                             <span class="blob-btn__blob"></span>
                           </span>
                         </span>
-                        </button>
+                            </button>
                         </a>
                         <br/>
 
@@ -194,77 +193,60 @@
                         </svg>
                     </div>
                 </div>
-<!--                end card-->
-<!--                start total user-->
+                <!--                end card-->
+                <!--                start total schedule-->
                 <div class="col-xl-4 col-12 card balance">
-                    <h2>Total Users</h2>
+                    <h2>Total Schedule</h2>
                     <ion-icon name="person-outline" size="large"></ion-icon>
                     <h2>[[${totalItems}]]</h2>
                 </div>
-<!--                end total user-->
-<!--                start chart-->
-                <div class="col-xl-4 col-12 card donut-chart m-lg-0 p-2">
-                    <div>
-                        <canvas id="chart-budget" style="height: 226px; width: 100%">
-                        </canvas>
-                    </div>
-                </div>
-<!--                end chart-->
+                <!--                end total Schedule-->
             </div>
 
             <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                 <!--            Start of Table-->
                 <div class="table-responsive">
-                    <table class="table table-borderless transaction-table w-100 active" id="table-all">
+                    <table class="table table-bordered table-hover" id="table-all">
                         <thead>
-                        <tr>
-                            <th class="action-header">ID</th>
-                            <th class="action-header">Username</th>
-                            <th class="action-header">E-Mail</th>
-                            <th class="action-header">Password</th>
-                            <th class="action-header">Action</th>
+                        <th>Film Name</th>
+                        <th>Studio Name</th>
+                        <th>Price</th>
                         </tr>
                         </thead>
-
                         <tbody>
-                        <th:block th:each="user : ${listUsers}">
-                        <tr>
-                            <td class="action-header"> [[${user.userId}]] </td>
-                            <td class="action-header"> [[${user.username}]] </td>
-                            <td> [[${user.emailId}]] </td>
-                            <td> [[${user.password}]] </td>
-                            <td>
-                                <a type="button" class="btn btn-success" th:href="@{/showFormForUpdate/{usersId}(usersId=${user.userId})}">Edit</a>
-                                <a type="button" class="btn btn-danger" style="margin-left:5px" th:href="@{/delete/{usersId}(usersId=${user.userId})}">Delete</a>
-                            </td>
-                        </tr>
+                        <th:block th:each="schedules : ${list}">
+                            <tr>
+                                <td> [[${schedules.films.name}]] </td>
+                                <td> [[${schedules.seats.studioName}]] </td>
+                                <td> [[${schedules.price}]] </td>
+                            </tr>
                         </th:block>
                         </tbody>
                     </table>
 
-<!--                    Start Pagination-->
+                    <!--                    Start Pagination-->
                     <div th:if ="${totalPages > 1}">
                         <div class="row col-sm-10">
-<!--                            <div class="col-sm-2">-->
-<!--                                <span>Total Rows: [[${totalItems}]]</span>-->
-<!--                            </div>-->
+                            <!--                            <div class="col-sm-2">-->
+                            <!--                                <span>Total Rows: [[${totalItems}]]</span>-->
+                            <!--                            </div>-->
                             <div class="col-sm-2">
                     <span th:each ="i: ${#numbers.sequence(1, totalPages)}">
-                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                        <a th:if="${currentPage != i}" th:href="@{'/page/schedule/' + ${i}}">[[${i}]]</a>
                         <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                     </span>
                             </div>
                             <div class="col-sm-1">
-                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/schedule/' + ${currentPage + 1}}">Next</a>
                                 <span th:unless="${currentPage < totalPages}">Next</span>
                             </div>
                             <div class="col-sm-1">
-                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage}}">Last</a>
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/schedule/' + ${currentPage}}">Last</a>
                                 <span th:unless="${currentPage < totalPages}">Last</span>
                             </div>
                         </div>
                     </div>
-<!--                    End Pagination-->
+                    <!--                    End Pagination-->
                 </div>
                 <!--            Enf of Table-->
             </div>
@@ -291,13 +273,13 @@
 <script src="/styles/cssandjs/js/line_chart.js"></script>
 
 <script>
-      $(document).ready(function () {
+    $(document).ready(function () {
         $('.sidebarCollapseDefault').on('click', function () {
-          $('.sidebar').toggleClass('active');
-          $('.content').toggleClass('active');
+            $('.sidebar').toggleClass('active');
+            $('.content').toggleClass('active');
         });
-      });
-    </script>
+    });
+</script>
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

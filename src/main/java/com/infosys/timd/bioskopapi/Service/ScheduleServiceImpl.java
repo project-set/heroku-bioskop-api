@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,10 +100,10 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
         return this.scheduleRepository.getScheduleFilmsNameLike(name);
     }
-//    @Override
-//    public Page<Schedule> findPaginated(Integer pageNo, Integer pageSize) {
-//        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-//        return this.scheduleRepository.findAll(pageable);
-//    }
+    @Override
+    public Page<Schedule> findPaginatedSchedule(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return this.scheduleRepository.findAll(pageable);
+    }
 }
 
