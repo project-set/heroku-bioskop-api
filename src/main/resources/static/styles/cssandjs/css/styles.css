@@ -39,6 +39,16 @@ body {
   }
 }
 
+
+.my-custom-scrollbar {
+position: relative;
+height: 400px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+
 *, *:before, *:after {
 	 box-sizing: border-box;
 	 margin: 0;
@@ -161,3 +171,4 @@ body {
 )) {
 	 transform: translateZ(0) scale(1.4);
 }
+
