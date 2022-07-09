@@ -31,7 +31,6 @@ public class FilmsControllerMVC {
         model.addAttribute("totalfilms", totalfilms);
         model.addAttribute("playingfilms", filmPlaying);
 
-
         return "film";
     }
 

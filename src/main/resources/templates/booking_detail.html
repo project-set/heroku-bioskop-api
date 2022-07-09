@@ -71,8 +71,8 @@
                 <i class="icon ic-stats"></i>
                 User
             </a>
-            <a th:href="@{/films}" class="item-menu">
-                <i class="fa fa-film fa-2x"></i>
+            <a th:href="@{/films}" class="item-menu active">
+                <i class="icon ic-trans"></i>
                 Film
             </a>
             <a th:href="@{/seats}" class="item-menu">
@@ -154,9 +154,14 @@
             <div class="text-center">
                 <h1>Detail Booking</h1>
             </div>
-            <form th:object="${bookings}"
+
+
+            <form th:object="${bookings}" id ="printPDF"
                   style="max-width: 700px; margin: 0 auto; ">
                 <div class="border border-secondary rounded p-3">
+
+
+
                     <div class="form-group row mt-3">
                         <label class="col-sm-4 col-form-label">Nama :</label>
                         <div class="col-sm-8">
@@ -205,12 +210,12 @@
                             </tr>
                         </div>
                     </div>
-                    <div class="text-center mt-3">
-                        <button type="button" class="btn btn-primary m-2">Print</button>
-                        <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Cancel</button>
-                    </div>
                 </div>
             </form>
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-primary m-2" onclick="printJS('printPDF', 'html')">Print</button>
+                <button type="button" class="btn btn-secondary m-2" onclick="cancelForm()">Cancel</button>
+            </div>
         </div>
 
         <!--            Enf of Table-->
@@ -221,6 +226,8 @@
 </main>
 
 <!-- Bootstrap JS -->
+<script src="/styles/cssandjs/js/print.min.js"></script>
+
 <script type="text/javascript">
     function cancelForm(){
         window.location = "[[@{/booking}]]"
