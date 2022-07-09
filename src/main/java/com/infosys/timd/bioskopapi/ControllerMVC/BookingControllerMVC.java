@@ -43,7 +43,7 @@ public class BookingControllerMVC {
     @GetMapping("/booking/new")
     public String showNewBooking(Model model) {
         model.addAttribute("booking", new Booking());
-        model.addAttribute("pageTitle", "Add New Schedules");
+        model.addAttribute("pageTitle", "Add New Booking");
 
         return "booking_form";
     }
@@ -61,7 +61,7 @@ public class BookingControllerMVC {
         try {
             Optional<Booking> booking = bookingService.getBookingById(Id);
             model.addAttribute("booking", booking);
-            model.addAttribute("pageTitle", "Edit Booking (ID: " + Id + ")");
+            model.addAttribute("pageTitle", "Edit Booking ID: " + Id );
             return "booking_form";
         } catch (ResourceNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
