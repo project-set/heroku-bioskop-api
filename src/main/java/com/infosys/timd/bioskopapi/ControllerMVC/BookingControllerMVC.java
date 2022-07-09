@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +24,20 @@ public class BookingControllerMVC {
     private BookingService bookingService;
 
     @GetMapping("/booking")
-
     public String showBooking(Model model){
         List<Booking> bookings = bookingService.getAll();
+        Collections.reverse(bookings);
         model.addAttribute("bookings", bookings);
 
-        return "bookings";
+        return "booking";
+    }
+
+    @GetMapping("/booking/detail/{bookingId}")
+    public String showBooking(@PathVariable("bookingId") long Id, Model model){
+        Optional<Booking> bookingget = bookingService.getBookingById(Id);
+        Booking bookings = bookingget.get();
+        model.addAttribute("bookings", bookings);
+        return "booking_detail";
     }
 
     @GetMapping("/booking/new")
@@ -46,6 +55,7 @@ public class BookingControllerMVC {
 
         return "redirect:/booking";
     }
+
     @GetMapping("/booking/edit/{bookingId}")
     public String showBookingEdit(@PathVariable("bookingId") long Id, Model model, RedirectAttributes ra) {
         try {

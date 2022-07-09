@@ -79,5 +79,10 @@ public class FilmsServiceImpl implements FilmsService {
 
         return this.filmsRepository.getFilmByIsPlaying(isPlaying);
     }
+
+    public List<Films> getIsPlaying(Integer isPlaying) {
+
+        return this.filmsRepository.getFilmIsPlaying(isPlaying);
+    }
 }
 

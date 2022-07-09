@@ -4,6 +4,9 @@ import com.infosys.timd.bioskopapi.Model.*;
 import com.infosys.timd.bioskopapi.Exception.*;;
 import com.infosys.timd.bioskopapi.Repository.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -79,8 +82,43 @@ public class UserServiceImplements implements UserService{
     }
 
     @Override
-    public User getReferenceById(Long Id) {
-        return this.userRepository.getReferenceById(Id);
+    public User getReferenceById(Long users_Id) {
+        Optional <User> optional = userRepository.findById(users_Id);
+        User user = null;
+        if (optional.isPresent()) {
+            user = optional.get();
+        } else {
+            throw new ResourceNotFoundException("User Not Found!" + users_Id);
+        }
+        return user;
+
+    }
+
+    @Override
+    public User getUserId(Long users_Id) {
+        Optional <User> optional = userRepository.findById(users_Id);
+        User user = null;
+        if (optional.isPresent()) {
+            user = optional.get();
+        } else {
+            throw new ResourceNotFoundException("User Not Found!" + users_Id);
+        }
+        return user;
+    }
+
+    @Override
+    public Page<User> findPaginated(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+        return this.userRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<User> getUserByNameLike(String name) {
+        List<User> getUserByNameLike = this.userRepository.getUserNameLike(name);
+        if (getUserByNameLike.isEmpty()){
+            throw new ResourceNotFoundException("Username " + name + " is not exist!");
+        }
+        return this.userRepository.getUserNameLike(name);
     }
 
 }
