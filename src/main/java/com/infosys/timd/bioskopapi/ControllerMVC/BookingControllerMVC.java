@@ -78,6 +78,7 @@ public class BookingControllerMVC {
         } catch (ResourceNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
+
         return "redirect:/booking";
     }
 }
