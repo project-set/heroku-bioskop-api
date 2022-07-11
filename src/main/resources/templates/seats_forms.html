@@ -153,6 +153,7 @@
     <form th:action="@{/seats/save}" method="post">
         <div class="border border-secondary rounded p-3" th:object="${seats}"
              style="background-color:white; max-width: 500px; margin: 0 auto;">
+            <input type="hidden" th:field="*{seatId}">
             <div class="form-group row">
                 <label class="col-sm-4 col-form-label">Nomor Kursi</label>
                 <div class="col-sm-8">
