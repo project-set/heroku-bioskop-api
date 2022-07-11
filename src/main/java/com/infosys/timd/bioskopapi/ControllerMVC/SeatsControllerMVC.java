@@ -25,7 +25,7 @@ public class SeatsControllerMVC {
         Collections.reverse(seats);
         model.addAttribute("seats", seats);
 
-        return "seats";
+        return "seatsPage";
     }
 
     @GetMapping("/seats/new")
