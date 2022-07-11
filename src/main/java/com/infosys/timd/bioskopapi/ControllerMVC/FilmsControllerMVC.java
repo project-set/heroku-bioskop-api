@@ -85,6 +85,11 @@ public class FilmsControllerMVC {
         }
  }
 
+    @GetMapping("films/deleteform")
+    public String showFilmForm(Films films) {
+        return "film_delete";
+    }
+
     @RequestMapping("films/delete/{filmId}")
     public String deleteFilm(@PathVariable long filmId, RedirectAttributes ra){
         try {
