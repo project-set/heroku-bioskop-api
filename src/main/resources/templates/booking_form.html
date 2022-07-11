@@ -71,8 +71,8 @@
                 <i class="icon ic-stats"></i>
                 User
             </a>
-            <a th:href="@{/films}" class="item-menu">
-                <i class="fa fa-film fa-2x"></i>
+            <a th:href="@{/films}" class="item-menu active">
+                <i class="icon ic-trans"></i>
                 Film
             </a>
             <a th:href="@{/seats}" class="item-menu">
@@ -147,12 +147,12 @@
     </nav>
     <section class="p-3">
         <header>
-            <h3>FILM</h3>
-            <p>Manage Film</p>
+            <h3>BOOKING</h3>
+            <p>Manage Booking</p>
         </header>
         <div class="container-fluid">
             <div class="text-center">
-                <h1>Add New Booking</h1>
+                <h1>[[${pageTitle}]]</h1>
             </div>
 
             <form th:action="@{/booking/save}" method="post" th:object="${booking}"

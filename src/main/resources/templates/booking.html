@@ -72,8 +72,8 @@
                 <i class="icon ic-stats"></i>
                 User
             </a>
-            <a th:href="@{/films}" class="item-menu">
-                <i class="fa fa-film fa-2x"></i>
+            <a th:href="@{/films}" class="item-menu active">
+                <i class="icon ic-trans"></i>
                 Film
             </a>
             <a th:href="@{/seats}" class="item-menu">
@@ -190,7 +190,7 @@
             </div>
             <br/><br/>
             <div>
-                <table  class="table table-striped table-light table-responsive-md">
+                <table class="table table-borderless transaction-table w-100 active" id="table-all">
                     <thead class="thead-dark">
                     <tr>
                         <th>No</th>
