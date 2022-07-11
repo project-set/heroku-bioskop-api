@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Schedule Dashboard Page" />
+    <meta name="description" content="Seats Dashboard Page" />
     <meta
             name="keywords"
             content="HTML, CSS, JavaScript, Bootstrap, Chart JS"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Schedule Dashboard</title>
+    <title>Seats Dashboard</title>
 
     <!-- Scrollbar Custom CSS -->
     <link
@@ -29,12 +29,6 @@
     <link
             rel="stylesheet"
             href="/styles/cssandjs/css/styles.css"
-            type="text/css"
-            media="screen"
-    />
-    <link
-            rel="stylesheet"
-            href="/styles/cssandjs/css/print.min.css"
             type="text/css"
             media="screen"
     />
@@ -73,7 +67,7 @@
     <div class="pt-2 d-flex flex-column gap-5">
         <div class="menu p-0">
             <p>Daily Use</p>
-            <a th:href="@{/usersPage}" class="item-menu active">
+            <a th:href="@{/usersPage}" class="item-menu">
                 <i class="icon ic-stats"></i>
                 User
             </a>
@@ -81,11 +75,11 @@
                 <i class="icon ic-trans"></i>
                 Film
             </a>
-            <a th:href="@{/seats}" class="item-menu">
+            <a th:href="@{/seatsPage}" class="item-menu">
                 <i class="icon ic-msg"></i>
                 Seat
             </a>
-            <a th:href="@{/schedulePage}" class="item-menu active">
+            <a th:href="@{/schedulePage}" class="item-menu">
                 <i class="icon ic-stats"></i>
                 Schedule
             </a>
@@ -94,21 +88,21 @@
                 Booking
             </a>
         </div>
-        <div class="menu">
-            <p>Others</p>
-            <a href="#" class="item-menu">
-                <i class="icon ic-settings"></i>
-                Settings
-            </a>
-            <a href="#" class="item-menu">
-                <i class="icon ic-help"></i>
-                Help
-            </a>
-            <a href="#" class="item-menu">
-                <i class="icon ic-logout"></i>
-                Logout
-            </a>
-        </div>
+<!--        <div class="menu">-->
+<!--            <p>Others</p>-->
+<!--            <a href="#" class="item-menu">-->
+<!--                <i class="icon ic-settings"></i>-->
+<!--                Settings-->
+<!--            </a>-->
+<!--            <a href="#" class="item-menu">-->
+<!--                <i class="icon ic-help"></i>-->
+<!--                Help-->
+<!--            </a>-->
+<!--            <a href="#" class="item-menu">-->
+<!--                <i class="icon ic-logout"></i>-->
+<!--                Logout-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
 </nav>
 
@@ -133,78 +127,37 @@
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
-
-            <form th:action="@{/search}" method="post" class="form-inline mb-3">
             <div class="d-flex align-items-center justify-content-end gap-4">
-                <input
-                        type="text"
-                        name="name"
-                        placeholder="Search Schedule"
-                        class="search form-control"
-                        th:value="${name}"
-                />
-                <button
-                        class="btn btn-search d-flex justify-content-center align-items-center p-0"
-                        type="submit"
-                >
-                    <img
+                <a href="/seats/search">
+                    <i class="btn btn-outline-secondary justify-content-center align-items-center p-0"
+                       type="button"> Search Available Seats <img
                             src="/styles/cssandjs/images/ic_search.svg"
                             width="20px"
                             height="20px"
-                    />
-                </button>
+                    /> </i>
+                </a>
                 <img
                         src="/styles/cssandjs/images/avatar.jpg"
                         alt="Photo Profile"
                         class="avatar"
                 />
             </div>
-            </form>
         </div>
     </nav>
     <section class="p-3">
         <header>
             <h3>Overview</h3>
-            <p>Manage Schedule</p>
+            <p>Manage Seats</p>
         </header>
         <div class="information d-flex flex-column gap-5">
             <div class="row px-1 mb-2 gap-5">
                 <!--               start card-->
                 <div class="col-xl-4 col-12 card debit">
-                    <p class="number">Add Schedule</p>
+                    <p class="number">Add Seats</p>
                     <div class="buttons">
-                        <a th:href="@{/schedule/new}">
+                        <a th:href="@{/seats/new}">
                             <button class="blob-btn">
-                                Add Schedule
-                                <span class="blob-btn__inner">
-                          <span class="blob-btn__blobs">
-                            <span class="blob-btn__blob"></span>
-                            <span class="blob-btn__blob"></span>
-                            <span class="blob-btn__blob"></span>
-                            <span class="blob-btn__blob"></span>
-                          </span>
-                        </span>
-                            </button>
-                        </a>
-                        <br/>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                            <defs>
-                                <filter id="goo">
-                                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
-                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
-                                    <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
-                                </filter>
-                            </defs>
-                        </svg>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-12 card debit">
-                    <p class="number">SAVE PDF</p>
-                    <div class="buttons">
-                        <a>
-                            <button class="blob-btn" type="button" onclick="printJS('table-all', 'html')">
-                                save PDF
+                                Add Seats
                                 <span class="blob-btn__inner">
                           <span class="blob-btn__blobs">
                             <span class="blob-btn__blob"></span>
@@ -229,57 +182,49 @@
                     </div>
                 </div>
                 <!--                end card-->
-                <!--                start total schedule-->
+                <!--                start total user-->
                 <div class="col-xl-4 col-12 card balance">
-                    <h2>Total Schedule</h2>
-                    <ion-icon name="person-outline" size="large"></ion-icon>
-                    <h2>[[${totalItems}]]</h2>
+                    <h2>Total Seats</h2>
+                    <ion-icon class="fa-solid fa-chair" size="large"></ion-icon>
+                    <h2>[[${totalSeats}]]</h2>
                 </div>
-                <!--                end total Schedule-->
+                <!--                end total user-->
+<!--                                start chart-->
+                <div class="col-xl-4 col-12 card donut-chart m-lg-0 p-2">
+                    <div>
+                        <canvas id="chart-budget" style="height: 226px; width: 100%">
+                        </canvas>
+                    </div>
+                </div>
+                <!--                end chart-->
             </div>
 
-
             <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-
-                <div th:if="${message}" class="alert alert-success text-center">
-                    [[${message}]]
-                </div>
                 <!--            Start of Table-->
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" id="table-all">
-                        <thead>
-                        <tr>
+                    <table class="text-center table table-borderless transaction-table w-100 active" id="table-all">
+                        <thead style="background: black; thead-dark">
+                        <tr style="color: white;">
+                            <th>No</th>
                             <th>ID</th>
-                            <th>Film Name</th>
-                            <th>Seat Number</th>
-                            <th>Studio Name</th>
-                            <th>Seat Status</th>
-                            <th>Date Show</th>
-                            <th>Show Start</th>
-                            <th>Show End</th>
-                            <th>Price</th>
-                            <th>Action</th>
+                            <th>Nomor Kursi</th>
+                            <th>Nama Studio</th>
+                            <th>Status Kursi</th>
+                            <th>Fiture</th>
                         </tr>
                         </thead>
+
                         <tbody>
-                        <th:block th:each="schedules : ${listSchdule}">
+                        <th:block th:each="seats, iter : ${seats}">
                             <tr>
-                                <td> [[${schedules.scheduleId}]] </td>
-                                <td> [[${schedules.films.name}]] </td>
-                                <td> [[${schedules.seats.seatNumber}]] </td>
-                                <td> [[${schedules.seats.studioName}]] </td>
-                                <td> [[${schedules.seats.isAvailable}]] </td>
-                                <td> [[${schedules.dateShow}]] </td>
-                                <td> [[${schedules.showStart}]] </td>
-                                <td> [[${schedules.showEnd}]] </td>
-                                <td> [[${schedules.price}]] </td>
+                                <td th:text="${iter.index + 1}"></td>
+                                <td> [[${seats.seatId}]] </td>
+                                <td> [[${seats.seatNumber}]] </td>
+                                <td> Teater [[${seats.studioName}]] </td>
+                                <td> [[${seats.isAvailable}]] </td>
                                 <td>
-                                    <a class="h4 btn btn-warning" th:href="@{'/schedulePage/edit/' + ${schedules.scheduleId}}">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                    <a onclick="myFunction()" class="h4 btn btn-danger" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </a>
+                                    <a class="btn btn-primary"  th:href="@{'/seats/update/' + ${seats.seatId}}"><i class="fa-solid fa-pen"></i></a>
+                                    <a class="btn btn-danger" th:href="@{'/seats/delete/' + ${seats.seatId}}"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                         </th:block>
@@ -294,16 +239,16 @@
                                                         </div>
                             <div class="col-sm-2">
                     <span th:each ="i: ${#numbers.sequence(1, totalPages)}">
-                        <a th:if="${currentPage != i}" th:href="@{'/page/schedule/' + ${i}}">[[${i}]]</a>
+                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
                         <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                     </span>
                             </div>
                             <div class="col-sm-1">
-                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/schedule/' + ${currentPage + 1}}">Next</a>
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
                                 <span th:unless="${currentPage < totalPages}">Next</span>
                             </div>
                             <div class="col-sm-1">
-                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/schedule/' + ${currentPage}}">Last</a>
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage}}">Last</a>
                                 <span th:unless="${currentPage < totalPages}">Last</span>
                             </div>
                         </div>
@@ -333,16 +278,15 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script src="/styles/cssandjs/js/donut_chart.js"></script>
 <script src="/styles/cssandjs/js/line_chart.js"></script>
-<script src="/styles/cssandjs/js/print.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+      $(document).ready(function () {
         $('.sidebarCollapseDefault').on('click', function () {
-            $('.sidebar').toggleClass('active');
-            $('.content').toggleClass('active');
+          $('.sidebar').toggleClass('active');
+          $('.content').toggleClass('active');
         });
-    });
-</script>
+      });
+    </script>
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
