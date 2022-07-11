@@ -48,7 +48,7 @@ public class SeatsControllerMVC {
     public String showUpdateForm(@PathVariable("seatId") Long seatId, Model model, RedirectAttributes ra) {
         try {
             Optional<Seats> seat = seatsService.findbyid(seatId);
-            model.addAttribute("seats", seat);
+             model.addAttribute("seats", seat);
             model.addAttribute("pageTitle", "Update Seats (ID: " + seatId + ")");
             ra.addFlashAttribute("message", "Data Modified");
             return "seats_forms";

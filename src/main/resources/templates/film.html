@@ -75,7 +75,7 @@
                 <i class="icon ic-trans"></i>
                 Film
             </a>
-            <a th:href="@{/seats}" class="item-menu">
+            <a th:href="@{/seatsPage}" class="item-menu">
                 <i class="icon ic-msg"></i>
                 Seat
             </a>
@@ -228,7 +228,7 @@
                                         <td>
                                             <a th:href="@{'/films/edit/' + ${films.filmId}}"
                                                class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                            <a th:href="@{'/films/deleteform'}"
+                                            <a th:href="@{'/films/delete/' + ${films.filmId}}"
                                                class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
