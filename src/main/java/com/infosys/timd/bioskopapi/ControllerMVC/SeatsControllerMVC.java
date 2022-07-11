@@ -1,13 +1,10 @@
 package com.infosys.timd.bioskopapi.ControllerMVC;
 
-import com.infosys.timd.bioskopapi.Model.Films;
-import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Model.Seats;
 import com.infosys.timd.bioskopapi.Service.SeatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +22,7 @@ public class SeatsControllerMVC {
     @GetMapping("/seats")
     public String showSeats(Model model) {
         List<Seats> seats = seatsService.findAllseats();
-        //Collections.reverse(seats);
+        Collections.reverse(seats);
         model.addAttribute("seats", seats);
 
         return "seats";
@@ -36,15 +33,15 @@ public class SeatsControllerMVC {
         model.addAttribute("seats", new Seats());
         model.addAttribute("pageTitle", "ADD NEW SEAT");
 
-        return "seats_form";
+        return "seats_forms";
     }
 
     @PostMapping("/seats/save")
     public String createseat(Seats seat, RedirectAttributes ra) {
         seatsService.createseat(seat);
-        ra.addFlashAttribute("message", "Seats has been added");
+        ra.addFlashAttribute("message", "Seat Added");
 
-        return "redirect:/seats";
+        return "redirect:/seatsPage";
     }
 
     @GetMapping("/seats/update/{seatId}")
@@ -53,11 +50,12 @@ public class SeatsControllerMVC {
             Optional<Seats> seat = seatsService.findbyid(seatId);
             model.addAttribute("seats", seat);
             model.addAttribute("pageTitle", "Update Seats (ID: " + seatId + ")");
-            return "seats_form";
+            ra.addFlashAttribute("message", "Data Modified");
+            return "seats_forms";
         } catch (Exception e) {
             ra.addFlashAttribute("message", e.getMessage());
 
-            return "redirect:/seats";
+            return "redirect:/seatsPage";
         }
     }
 
@@ -68,19 +66,36 @@ public class SeatsControllerMVC {
         } catch (Exception e) {
             ra.addFlashAttribute("message", e.getMessage());
         }
-        return "redirect:/seats";
+        return "redirect:/seatsPage";
     }
 
-//    @PostMapping("/search")
-//    public String search(Seats seats, Model model, Integer isAvailable) {
-//        if (isAvailable != null) {
-//            List<Seats> optionalSeats = seatsService.getSeatAvailable(isAvailable);
-//            model.addAttribute("seats", optionalSeats);
-//        } else {
-//            List<Seats> seat = seatsService.findAllseats();
-//            model.addAttribute("seats", seat);
+
+    @GetMapping("seats/search")
+    public String searchSeats(Model model,Integer isAvailable){
+
+        List<Seats> seats = seatsService.getSeatAvailableNew(isAvailable);
+
+        model.addAttribute("seats", seats);
+
+        return "seats_searchs";
+    }
+
+//    pembatas
+
+    @GetMapping("/seatsPage")
+    public  String getAllSeats(Model model) {
+        int totalSeats;
+        List<Seats> seats = seatsService.findAllseats();
+        totalSeats = seats.size();
+        Collections.reverse(seats);
+        model.addAttribute("seats", seats);
+        model.addAttribute("totalSeats", totalSeats);
+
+        return "seatsPage.html";
+//        return findPaginatedSeats(1, model);
+    }
 //
-//        } return "seats_search";
-//    }
+//    @GetMapping("/oageSeat/{pageNo}")
+//    public String findPaginatedSeats(PathVariable(value = "pageNoSeat") M)
 }
 
