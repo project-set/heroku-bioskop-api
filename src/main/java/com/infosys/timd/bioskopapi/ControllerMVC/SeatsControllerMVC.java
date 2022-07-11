@@ -21,12 +21,9 @@ public class SeatsControllerMVC {
 
     @GetMapping("/seats")
     public String showSeats(Model model) {
-        Integer totalSeats;
         List<Seats> seats = seatsService.findAllseats();
-        totalSeats = seats.size();
         Collections.reverse(seats);
         model.addAttribute("seats", seats);
-        model.addAttribute("totalSeats", totalSeats);
 
         return "seats";
     }
@@ -87,9 +84,12 @@ public class SeatsControllerMVC {
 
     @GetMapping("/seatsPage")
     public  String getAllSeats(Model model) {
+        int totalSeats;
         List<Seats> seats = seatsService.findAllseats();
+        totalSeats = seats.size();
         Collections.reverse(seats);
         model.addAttribute("seats", seats);
+        model.addAttribute("totalSeats", totalSeats);
 
         return "seatsPage.html";
 //        return findPaginatedSeats(1, model);

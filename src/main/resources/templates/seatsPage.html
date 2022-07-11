@@ -67,7 +67,7 @@
     <div class="pt-2 d-flex flex-column gap-5">
         <div class="menu p-0">
             <p>Daily Use</p>
-            <a th:href="@{/users}" class="item-menu active">
+            <a th:href="@{/usersPage}" class="item-menu">
                 <i class="icon ic-stats"></i>
                 User
             </a>
@@ -79,7 +79,7 @@
                 <i class="icon ic-msg"></i>
                 Seat
             </a>
-            <a th:href="@{/schedule}" class="item-menu">
+            <a th:href="@{/schedulePage}" class="item-menu">
                 <i class="icon ic-stats"></i>
                 Schedule
             </a>
@@ -185,7 +185,7 @@
                 <!--                start total user-->
                 <div class="col-xl-4 col-12 card balance">
                     <h2>Total Seats</h2>
-                    <ion-icon name="person-outline" size="large"></ion-icon>
+                    <ion-icon class="fa-solid fa-chair" size="large"></ion-icon>
                     <h2>[[${totalSeats}]]</h2>
                 </div>
                 <!--                end total user-->
@@ -203,8 +203,8 @@
                 <!--            Start of Table-->
                 <div class="table-responsive">
                     <table class="text-center table table-borderless transaction-table w-100 active" id="table-all">
-                        <thead>
-                        <tr>
+                        <thead style="background: black; thead-dark">
+                        <tr style="color: white;">
                             <th>No</th>
                             <th>ID</th>
                             <th>Nomor Kursi</th>
@@ -232,27 +232,27 @@
                     </table>
 
                     <!--                    Start Pagination-->
-<!--                    <div th:if ="${totalPages > 1}">-->
-<!--                        <div class="row col-sm-10">-->
-                            <!--                            <div class="col-sm-2">-->
-                            <!--                                <span>Total Rows: [[${totalItems}]]</span>-->
-                            <!--                            </div>-->
-<!--                            <div class="col-sm-2">-->
-<!--                    <span th:each ="i: ${#numbers.sequence(1, totalPages)}">-->
-<!--                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>-->
-<!--                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;-->
-<!--                    </span>-->
-<!--                            </div>-->
-<!--                            <div class="col-sm-1">-->
-<!--                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>-->
-<!--                                <span th:unless="${currentPage < totalPages}">Next</span>-->
-<!--                            </div>-->
-<!--                            <div class="col-sm-1">-->
-<!--                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage}}">Last</a>-->
-<!--                                <span th:unless="${currentPage < totalPages}">Last</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div th:if ="${totalPages > 1}">
+                        <div class="row col-sm-10">
+                                                        <div class="col-sm-2">
+                                                            <span>Total Rows: [[${totalItems}]]</span>
+                                                        </div>
+                            <div class="col-sm-2">
+                    <span th:each ="i: ${#numbers.sequence(1, totalPages)}">
+                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                    </span>
+                            </div>
+                            <div class="col-sm-1">
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+                                <span th:unless="${currentPage < totalPages}">Next</span>
+                            </div>
+                            <div class="col-sm-1">
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage}}">Last</a>
+                                <span th:unless="${currentPage < totalPages}">Last</span>
+                            </div>
+                        </div>
+                    </div>
                     <!--                    End Pagination-->
                 </div>
                 <!--            Enf of Table-->

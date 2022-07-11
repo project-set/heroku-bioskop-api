@@ -223,7 +223,7 @@
                                 <a th:href="@{'/booking/edit/' + ${bookings.bookingId}}"
                                    class="btn btn-primary"><i class="fas fa-edit"></i></a>
                                 <a th:href="@{'/booking/detail/'+ ${bookings.bookingId}}"
-                                   class="btn btn-secondary"><i class="fas fa-print"></i></a>
+                                   class="btn btn-secondary" onclick="printJS('table-all', 'html')"><i class="fas fa-print"></i></a>
                                 <a th:href="@{'/booking/delete/' + ${bookings.bookingId}}"
                                    class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                             </td>
@@ -265,6 +265,8 @@
         });
       });
     </script>
+
+<script src="/styles/cssandjs/js/print.min.js"></script>
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
