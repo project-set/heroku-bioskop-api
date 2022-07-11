@@ -32,6 +32,12 @@
             type="text/css"
             media="screen"
     />
+    <link
+            rel="stylesheet"
+            href="/styles/cssandjs/css/print.min.css"
+            type="text/css"
+            media="screen"
+    />
 
     <!-- CDN Fontawesome -->
     <script
@@ -67,7 +73,7 @@
     <div class="pt-2 d-flex flex-column gap-5">
         <div class="menu p-0">
             <p>Daily Use</p>
-            <a th:href="@{/usersPage}" class="item-menu">
+            <a th:href="@{/usersPage}" class="item-menu active">
                 <i class="icon ic-stats"></i>
                 User
             </a>
@@ -79,7 +85,7 @@
                 <i class="icon ic-msg"></i>
                 Seat
             </a>
-            <a th:href="@{/schedulePage}" class="item-menu">
+            <a th:href="@{/schedulePage}" class="item-menu active">
                 <i class="icon ic-stats"></i>
                 Schedule
             </a>
@@ -193,6 +199,35 @@
                         </svg>
                     </div>
                 </div>
+                <div class="col-xl-4 col-12 card debit">
+                    <p class="number">SAVE PDF</p>
+                    <div class="buttons">
+                        <a>
+                            <button class="blob-btn" type="button" onclick="printJS('table-all', 'html')">
+                                save PDF
+                                <span class="blob-btn__inner">
+                          <span class="blob-btn__blobs">
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                            <span class="blob-btn__blob"></span>
+                          </span>
+                        </span>
+                            </button>
+                        </a>
+                        <br/>
+
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                            <defs>
+                                <filter id="goo">
+                                    <feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="10"></feGaussianBlur>
+                                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 21 -7" result="goo"></feColorMatrix>
+                                    <feBlend in2="goo" in="SourceGraphic" result="mix"></feBlend>
+                                </filter>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
                 <!--                end card-->
                 <!--                start total schedule-->
                 <div class="col-xl-4 col-12 card balance">
@@ -203,7 +238,12 @@
                 <!--                end total Schedule-->
             </div>
 
+
             <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+
+                <div th:if="${message}" class="alert alert-success text-center">
+                    [[${message}]]
+                </div>
                 <!--            Start of Table-->
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="table-all">
@@ -218,7 +258,7 @@
                             <th>Show Start</th>
                             <th>Show End</th>
                             <th>Price</th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -234,7 +274,7 @@
                                 <td> [[${schedules.showEnd}]] </td>
                                 <td> [[${schedules.price}]] </td>
                                 <td>
-                                    <a class="h4 mr-2 btn btn-warning" th:href="@{'/schedulePage/edit/' + ${schedules.scheduleId}}">
+                                    <a class="h4 btn btn-warning" th:href="@{'/schedulePage/edit/' + ${schedules.scheduleId}}">
                                         <i class="fa-solid fa-pen"></i>
                                     </a>
                                     <a onclick="myFunction()" class="h4 btn btn-danger" th:href="@{'/schedule/delete/' + ${schedules.scheduleId}}">
@@ -293,6 +333,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script src="/styles/cssandjs/js/donut_chart.js"></script>
 <script src="/styles/cssandjs/js/line_chart.js"></script>
+<script src="/styles/cssandjs/js/print.min.js"></script>
 
 <script>
     $(document).ready(function () {
