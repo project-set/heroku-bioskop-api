@@ -7,6 +7,9 @@ import com.infosys.timd.bioskopapi.Response.*;
 import com.infosys.timd.bioskopapi.Service.*;
 import com.infosys.timd.bioskopapi.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -76,6 +79,23 @@ public class SeatsServiceImpl implements SeatsService {
         }
         return this.seatRepository.getSeatAvailable(isAvailable);
     }
+
+    @Override
+    public List<Seats> getSeatAvailableNew(Integer isAvailable) {
+        List<Seats> optionalSeats = seatRepository.getSeatAvailableNew(isAvailable);
+        if (optionalSeats.isEmpty()){
+            throw new ResourceNotFoundException("Seats not exist with id : " + isAvailable);
+        }
+        return this.seatRepository.getSeatAvailableNew(isAvailable);
+    }
+
+//    tambahan
+
+//    @Override
+//    public Page<Seats> findPaginatedSeats(int pageNoSeat, int pageSizeSeat) {
+//        Pageable pageable = PageRequest.of(pageNoSeat -1, pageSizeSeat);
+//        return this.seatRepository.findAll(pageable);
+//    }
 
 }
 
