@@ -9,7 +9,7 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>User Dashboard</title>
+    <title>Film Dashboard</title>
 
     <!-- Scrollbar Custom CSS -->
     <link
@@ -38,6 +38,7 @@
             src="https://kit.fontawesome.com/32f82e1dca.js"
             crossorigin="anonymous"
     ></script>
+
 </head>
 <body>
 <!-- Nav Sidebar -->
@@ -187,7 +188,7 @@
                 <div class="col-xl-4 col-12 card balance">
                     <h2>Total Films</h2>
                     <ion-icon class="fa fa-film fa-4x"></ion-icon>
-                    <h2>[[${totalfilms}]]</h2>
+                    <h2>[[${totalItems}]]</h2>
                 </div>
                 <!--                end total user-->
                 <!--                start chart-->
@@ -198,7 +199,6 @@
                 </div>
                 <!--                end total user-->
                 <!--                start chart-->
-
                 <div class="container my-2">
                     <div  class="text-dark"; align="center"><h1>SHOW ALL FILMS</h1></div>
                     <div class="container-fluid col-md-10 text-center">
@@ -207,11 +207,10 @@
                         </div>
                         <div  th:switch="${/films/add}" class="container my-5">
                         <br/><br/>
-                          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                          <div class="table-responsive">
                               <table class="table table-borderless transaction-table w-100 active" id="table-all">
                                   <thead class="thead-light">
                                 <tr>
-                                    <th style="width:10%">No</th>
                                     <th style="width:10%">Kode</th>
                                     <th style="width:50%">Judul Film</th>
                                     <th style="width:15%">Status</th>
@@ -219,12 +218,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <th:block th:each="films, iter : ${films}">
+                                <th:block th:each="films, iter : ${listFilms}">
                                     <tr>
-                                        <td scope="row" th:text="${iter.index + 1}"></td>
                                         <td> [[${films.filmId}]] </td>
                                         <td><b> [[${films.name}]] </b></td>
-                                        <td> [[${films.isPlaying}]] </td>
+<!--                                        <td> [[${films.isPlaying}]] </td>-->
+                                        <td th:text="${films.isPlaying} ? 'Playing' : 'Coming Soon'"></td>
                                         <td>
                                             <a th:href="@{'/films/edit/' + ${films.filmId}}"
                                                class="btn btn-primary"><i class="fas fa-edit"></i></a>
@@ -235,34 +234,28 @@
                                 </th:block>
                                 </tbody>
                             </table>
+                     <!--                    Start Pagination-->
+                    <div class="row col-sm-10">
+                        <div class="col-sm-2">
+                            <span>Total Rows: [[${totalItems}]]</span>
                         </div>
+                        <div class="pagination justify-content-center">
+                            <div >
+                                    <span th:each ="i: ${#numbers.sequence(1, totalPages)}">
+                                    <a th:if="${currentPage != i}" th:href="@{'/page/films/' + ${i}}">[[${i}]]</a>
+                                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;</span>
+                                    <a  th:href="@{'/page/films/' + ${currentPage + 1}}">Next</a>
+                                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/films/' + ${totalPages}}">Last</a>
+
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                                        <!--                    End Pagination-->
+                        </div>
+                <!--            Enf of Table-->
                     </div>
                 </div>
-<!--                    &lt;!&ndash;                    Start Pagination&ndash;&gt;-->
-<!--                    <div th:if ="${totalPages > 1}">-->
-<!--                        <div class="row col-sm-10">-->
-<!--                            &lt;!&ndash;                            <div class="col-sm-2">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                <span>Total Rows: [[${totalItems}]]</span>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--                            <div class="col-sm-2">-->
-<!--                    <span th:each ="i: ${#numbers.sequence(1, totalPages)}">-->
-<!--                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>-->
-<!--                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;-->
-<!--                    </span>-->
-<!--                            </div>-->
-<!--                            <div class="col-sm-1">-->
-<!--                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>-->
-<!--                                <span th:unless="${currentPage < totalPages}">Next</span>-->
-<!--                            </div>-->
-<!--                            <div class="col-sm-1">-->
-<!--                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage}}">Last</a>-->
-<!--                                <span th:unless="${currentPage < totalPages}">Last</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash;                    End Pagination&ndash;&gt;-->
-                </div>
-                <!--            Enf of Table-->
             </div>
         </div>
 
