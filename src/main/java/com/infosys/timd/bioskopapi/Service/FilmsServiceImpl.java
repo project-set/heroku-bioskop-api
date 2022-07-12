@@ -7,6 +7,9 @@ import com.infosys.timd.bioskopapi.Response.*;
 import com.infosys.timd.bioskopapi.Service.*;
 import com.infosys.timd.bioskopapi.Repository.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -83,6 +86,12 @@ public class FilmsServiceImpl implements FilmsService {
     public List<Films> getIsPlaying(Integer isPlaying) {
 
         return this.filmsRepository.getFilmIsPlaying(isPlaying);
+    }
+
+    @Override
+    public Page<Films> findPaginatedFilms(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return this.filmsRepository.findAll(pageable);
     }
 }
 
