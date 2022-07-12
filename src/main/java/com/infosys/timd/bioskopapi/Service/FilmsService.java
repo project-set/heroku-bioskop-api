@@ -6,6 +6,7 @@ import com.infosys.timd.bioskopapi.Exception.*;
 import com.infosys.timd.bioskopapi.Response.*;
 import com.infosys.timd.bioskopapi.Service.*;
 import com.infosys.timd.bioskopapi.Repository.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ public interface FilmsService {
    List<Films> getIsPlaying(Integer isPlaying);
 //   List<Films> getNamePriceStudio(String name);
    Films getReferenceById (Long id);
+   Page<Films> findPaginatedFilms(int pageNo, int pageSize);
 
 
 }
