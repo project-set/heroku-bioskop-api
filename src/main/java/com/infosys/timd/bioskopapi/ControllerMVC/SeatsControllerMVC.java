@@ -3,6 +3,7 @@ package com.infosys.timd.bioskopapi.ControllerMVC;
 import com.infosys.timd.bioskopapi.Model.Seats;
 import com.infosys.timd.bioskopapi.Service.SeatsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -92,10 +93,14 @@ public class SeatsControllerMVC {
         model.addAttribute("totalSeats", totalSeats);
 
         return "seatsPage.html";
-//        return findPaginatedSeats(1, model);
+//        return findPaginatedSeats(1,model);
     }
-//
+
 //    @GetMapping("/oageSeat/{pageNo}")
-//    public String findPaginatedSeats(PathVariable(value = "pageNoSeat") M)
+//    public String findPaginatedSeats(PathVariable(value = "pageNo") int pageNo, Model model) {
+//        int pageSize = 10;
+//
+//        Page<Seats> seatsPage = seatsService.findPaginatedSeats(pageNo,)
+//    }
 }
 
