@@ -5,6 +5,7 @@ import com.infosys.timd.bioskopapi.Model.Films;
 import com.infosys.timd.bioskopapi.Model.Schedule;
 import com.infosys.timd.bioskopapi.Service.FilmsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,19 +20,12 @@ public class FilmsControllerMVC {
 
     @GetMapping("/films")
     public String showFilm(Model model, Integer isPlaying){
-        Integer totalfilms;  Integer filmPlaying;
-        List<Films> films = filmsService.findAllFilms();
-        totalfilms = films.size();
-        Collections.reverse(films);
-
+        Integer filmPlaying;
         List<Films> filmsList = filmsService.getIsPlaying(isPlaying);
         filmPlaying = filmsList.size();
-
-        model.addAttribute("films", films);
-        model.addAttribute("totalfilms", totalfilms);
         model.addAttribute("playingfilms", filmPlaying);
 
-        return "film";
+        return findPaginatedFilms(1, model);
     }
 
 @GetMapping("/films/add")
@@ -85,6 +79,11 @@ public class FilmsControllerMVC {
         }
  }
 
+    @GetMapping("films/deleteform")
+    public String showFilmForm(Films films) {
+        return "film_delete";
+    }
+
     @RequestMapping("films/delete/{filmId}")
     public String deleteFilm(@PathVariable long filmId, RedirectAttributes ra){
         try {
@@ -103,6 +102,20 @@ public class FilmsControllerMVC {
                model.addAttribute("films", films);
 
         return "film_search";
+    }
+
+    @GetMapping("/page/films/{pageNo}")
+    public String findPaginatedFilms(@PathVariable (value = "pageNo") int pageNo, Model model){
+        int pageSize = 7;
+
+        Page<Films> page = filmsService.findPaginatedFilms(pageNo, pageSize);
+        List<Films> listFilms = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("listFilms", listFilms);
+        return "/film";
     }
 }
 

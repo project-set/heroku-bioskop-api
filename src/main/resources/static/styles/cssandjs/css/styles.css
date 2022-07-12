@@ -172,4 +172,30 @@ display: block;
 	 transform: translateZ(0) scale(1.4);
 }
 
+/*buat button modal */
+        .home .button {
+            float: right;
+            background-color: #96adb7;
+            padding: 10px 24px;
+            display: inline-block;
+            border-radius: 12px;
+            transition: var(--tran-05);
+        }
+        .home .modal .modal-content {
+            background-color: #8fc2cb;
+            color: rgb(248, 248, 248);
+        }
+        .home .button:hover{
+            background-color: #5faebb;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
 
+        .sidebar.close ~ .home{
+            left: 78px;
+            height: 100vh;
+            width: calc(100% - 78px);
+        }
+        body.dark .home{
+            background-color: var(--body-color);
+
+        }
