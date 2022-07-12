@@ -222,7 +222,8 @@
                                     <tr>
                                         <td> [[${films.filmId}]] </td>
                                         <td><b> [[${films.name}]] </b></td>
-                                        <td> [[${films.isPlaying}]] </td>
+<!--                                        <td> [[${films.isPlaying}]] </td>-->
+                                        <td th:text="${films.isPlaying} ? 'Playing' : 'Coming Soon'"></td>
                                         <td>
                                             <a th:href="@{'/films/edit/' + ${films.filmId}}"
                                                class="btn btn-primary"><i class="fas fa-edit"></i></a>
