@@ -1,6 +1,5 @@
 package com.infosys.timd.bioskopapi.Controller;
 
-import com.infosys.timd.bioskopapi.DTO.FilmsResponseDTO;
 import com.infosys.timd.bioskopapi.Model.*;
 import com.infosys.timd.bioskopapi.Exception.*;
 import com.infosys.timd.bioskopapi.Response.*;
@@ -12,8 +11,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

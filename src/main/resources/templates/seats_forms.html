@@ -89,21 +89,21 @@
                 Booking
             </a>
         </div>
-<!--        <div class="menu">-->
-<!--            <p>Others</p>-->
-<!--            <a href="#" class="item-menu">-->
-<!--                <i class="icon ic-settings"></i>-->
-<!--                Settings-->
-<!--            </a>-->
-<!--            <a href="#" class="item-menu">-->
-<!--                <i class="icon ic-help"></i>-->
-<!--                Help-->
-<!--            </a>-->
-<!--            <a href="#" class="item-menu">-->
-<!--                <i class="icon ic-logout"></i>-->
-<!--                Logout-->
-<!--            </a>-->
-<!--        </div>-->
+        <div class="menu">
+            <p>Others</p>
+            <a href="#" class="item-menu">
+                <i class="icon ic-settings"></i>
+                Settings
+            </a>
+            <a href="#" class="item-menu">
+                <i class="icon ic-help"></i>
+                Help
+            </a>
+            <a href="#" class="item-menu">
+                <i class="icon ic-logout"></i>
+                Logout
+            </a>
+        </div>
     </div>
 </nav>
 
@@ -147,29 +147,41 @@
         </div>
     </nav>
 <div class="container-fluid">
+    <selection>
     <br/>
     <div class="text-center"><h2>[[${pageTitle}]]</h2></div>
     <br/>
-    <form th:action="@{/seats/save}" method="post">
-        <div class="border border-secondary rounded p-3" th:object="${seats}"
+    <form th:action="@{/seats/save}" method="post" th:object="${seats}">
+        <div class="border border-secondary rounded p-3"
              style="background-color:white; max-width: 500px; margin: 0 auto;">
             <input type="hidden" th:field="*{seatId}">
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nomor Kursi</label>
+                <label class="col-sm-4 col-form-label">Nomor Kursi :</label>
                 <div class="col-sm-8">
                     <input type="text" th:field="*{seatNumber}" class="form-control" required minlength="1" maxlength="10" />
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Nama Studio</label>
+            <div class="form-group row mt-3">
+                <label class="col-sm-4 col-form-label">Nama Studio :</label>
                 <div class="col-sm-8">
-                    <input type="text" th:field="*{studioName}" class="form-control" required minlength="1" maxlength="2" />
+                    <select class="form-select" th:name="studioName" th:value="${studioName}" aria-label="Default select example">
+                        <option value= A >Teater A</option>
+                        <option value= B >Teater B</option>
+                        <option value= C >Teater C</option>
+                        <option value= D >Teater D</option>
+                        <option value= E >Teater E</option>
+                    </select>
+<!--                    <input type="text" th:field="*{studioName}" class="form-control" required minlength="1" maxlength="2" />-->
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">Status Kursi</label>
+            <div class="form-group row mt-3">
+                <label class="col-sm-4 col-form-label">Status Kursi :</label>
                 <div class="col-sm-8">
-                    <input type="text" th:field="*{isAvailable}" class="form-control" required minlength="1" maxlength="1" />
+                    <select class="form-select" th:name="isAvailable" th:value="${isAvailable}" aria-label="Default select example">
+                        <option value= 1 >Available</option>
+                        <option value= 0 >Not Available</option>
+                    </select>
+<!--                    <input type="text" th:field="*{isAvailable}" class="form-control" required minlength="1" maxlength="1" />-->
                 </div>
             </div>
             <div class="text-center">
@@ -178,7 +190,7 @@
             </div>
         </div>
     </form>
-
+    </selection>
 </div>
 
     <!-- Bootstrap JS -->
@@ -215,6 +227,7 @@
     window.location = "[[@{/seatsPage}]]";
     }
 </script>
+
 </main>
 </body>
 </html>
