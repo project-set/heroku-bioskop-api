@@ -20,14 +20,14 @@ public class SeatsControllerMVC {
     @Autowired
     private SeatsService seatsService;
 
-    @GetMapping("/seats")
-    public String showSeats(Model model) {
-        List<Seats> seats = seatsService.findAllseats();
-        Collections.reverse(seats);
-        model.addAttribute("seats", seats);
-
-        return "seatsPage";
-    }
+//    @GetMapping("/seats")
+//    public String showSeats(Model model) {
+//        List<Seats> seats = seatsService.findAllseats();
+//        Collections.reverse(seats);
+//        model.addAttribute("seats", seats);
+//
+//        return "seatsPage";
+//    }
 
     @GetMapping("/seats/new")
     public String showNewForm(Model model) {
@@ -85,22 +85,30 @@ public class SeatsControllerMVC {
 
     @GetMapping("/seatsPage")
     public  String getAllSeats(Model model) {
-        int totalSeats;
-        List<Seats> seats = seatsService.findAllseats();
-        totalSeats = seats.size();
-        Collections.reverse(seats);
-        model.addAttribute("seats", seats);
-        model.addAttribute("totalSeats", totalSeats);
-
-        return "seatsPage.html";
-//        return findPaginatedSeats(1,model);
+//        int totalSeats;
+//        List<Seats> seats = seatsService.findAllseats();
+//        totalSeats = seats.size();
+//        Collections.reverse(seats);
+//        model.addAttribute("seats", seats);
+//        model.addAttribute("totalSeats", totalSeats);
+//
+//        return "seatsPage.html";
+        return findPaginatedSeats(1,model);
     }
 
-//    @GetMapping("/oageSeat/{pageNo}")
-//    public String findPaginatedSeats(PathVariable(value = "pageNo") int pageNo, Model model) {
-//        int pageSize = 10;
-//
-//        Page<Seats> seatsPage = seatsService.findPaginatedSeats(pageNo,)
-//    }
+    @GetMapping("/page/seats/{pageNo}")
+    public String findPaginatedSeats(@PathVariable(value = "pageNo") int pageNo, Model model) {
+        int pageSize = 10;
+
+        Page<Seats> page = seatsService.findPaginatedSeats(pageNo,pageSize);
+        List<Seats> listSeats = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("listSeats", listSeats);
+
+        return "seatsPage";
+    }
 }
 
