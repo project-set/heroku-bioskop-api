@@ -109,6 +109,7 @@ public class SeatsControllerMVC {
         model.addAttribute("listSeats", listSeats);
 
         return "seatsPage";
+
     }
 }
 

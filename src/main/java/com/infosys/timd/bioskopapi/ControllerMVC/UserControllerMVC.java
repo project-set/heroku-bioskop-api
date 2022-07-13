@@ -80,7 +80,7 @@ public class UserControllerMVC {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listUsers", listUsers);
-        return "/usersPage";
+        return "usersPage";
     }
 
     @GetMapping("/search")
