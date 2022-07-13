@@ -11,6 +11,7 @@
     <groupId>com.Infosys.timd</groupId>
     <artifactId>Bioskop-Api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>Bioskop-Api</name>
     <description>Bioskop-Api</description>
     <properties>
