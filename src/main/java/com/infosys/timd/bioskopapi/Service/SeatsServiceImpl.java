@@ -91,11 +91,11 @@ public class SeatsServiceImpl implements SeatsService {
 
 //    tambahan
 
-//    @Override
-//    public Page<Seats> findPaginatedSeats(int pageNoSeat, int pageSizeSeat) {
-//        Pageable pageable = PageRequest.of(pageNoSeat -1, pageSizeSeat);
-//        return this.seatRepository.findAll(pageable);
-//    }
+    @Override
+    public Page<Seats> findPaginatedSeats(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+        return this.seatRepository.findAll(pageable);
+    }
 
 }
 

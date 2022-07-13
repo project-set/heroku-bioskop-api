@@ -20,5 +20,5 @@ public interface SeatsService {
     Seats getReferenceById (Long id);
     List<Seats> getSeatAvailable(Integer isAvailable);
     List<Seats> getSeatAvailableNew(Integer isAvailable);
-//    Page<Seats> findPaginatedSeats(int pageNoSeat, int pageSizeSeat);
+    Page<Seats> findPaginatedSeats(int pageNo, int pageSize);
 }

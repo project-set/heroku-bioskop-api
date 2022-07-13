@@ -88,21 +88,21 @@
                 Booking
             </a>
         </div>
-<!--        <div class="menu">-->
-<!--            <p>Others</p>-->
-<!--            <a href="#" class="item-menu">-->
-<!--                <i class="icon ic-settings"></i>-->
-<!--                Settings-->
-<!--            </a>-->
-<!--            <a href="#" class="item-menu">-->
-<!--                <i class="icon ic-help"></i>-->
-<!--                Help-->
-<!--            </a>-->
-<!--            <a href="#" class="item-menu">-->
-<!--                <i class="icon ic-logout"></i>-->
-<!--                Logout-->
-<!--            </a>-->
-<!--        </div>-->
+        <div class="menu">
+            <p>Others</p>
+            <a href="#" class="item-menu">
+                <i class="icon ic-settings"></i>
+                Settings
+            </a>
+            <a href="#" class="item-menu">
+                <i class="icon ic-help"></i>
+                Help
+            </a>
+            <a href="#" class="item-menu">
+                <i class="icon ic-logout"></i>
+                Logout
+            </a>
+        </div>
     </div>
 </nav>
 
@@ -186,7 +186,7 @@
                 <div class="col-xl-4 col-12 card balance">
                     <h2>Total Seats</h2>
                     <ion-icon class="fa-solid fa-chair" size="large"></ion-icon>
-                    <h2>[[${totalSeats}]]</h2>
+                    <h2>[[${totalItems}]]</h2>
                 </div>
                 <!--                end total user-->
 <!--                                start chart-->
@@ -200,12 +200,15 @@
             </div>
 
             <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <div style="width:300px; float=center;" th:if="${message}" class="alert alert-success text-center">
+                    [[${message}]]
+                </div>
                 <!--            Start of Table-->
                 <div class="table-responsive">
                     <table class="text-center table table-borderless transaction-table w-100 active" id="table-all">
                         <thead style="background: black; thead-dark">
                         <tr style="color: white;">
-                            <th>No</th>
+<!--                            <th>No</th>-->
                             <th>ID</th>
                             <th>Nomor Kursi</th>
                             <th>Nama Studio</th>
@@ -215,13 +218,14 @@
                         </thead>
 
                         <tbody>
-                        <th:block th:each="seats, iter : ${seats}">
+                        <th:block th:each="seats, iter : ${listSeats}">
                             <tr>
-                                <td th:text="${iter.index + 1}"></td>
+<!--                                <td th:text="${iter.index + 1}"></td>-->
                                 <td> [[${seats.seatId}]] </td>
                                 <td> [[${seats.seatNumber}]] </td>
                                 <td> Teater [[${seats.studioName}]] </td>
-                                <td> [[${seats.isAvailable}]] </td>
+<!--                                <td> [[${seats.isAvailable}]] </td>-->
+                                <td th:text="${seats.isAvailable} ? 'Available' : 'Not Available'"></td>
                                 <td>
                                     <a class="btn btn-primary"  th:href="@{'/seats/update/' + ${seats.seatId}}"><i class="fa-solid fa-pen"></i></a>
                                     <a class="btn btn-danger" th:href="@{'/seats/delete/' + ${seats.seatId}}"><i class="fa-solid fa-trash-can"></i></a>
@@ -232,24 +236,19 @@
                     </table>
 
                     <!--                    Start Pagination-->
-                    <div th:if ="${totalPages > 1}">
-                        <div class="row col-sm-10">
-                                                        <div class="col-sm-2">
-                                                            <span>Total Rows: [[${totalItems}]]</span>
-                                                        </div>
-                            <div class="col-sm-2">
-                    <span th:each ="i: ${#numbers.sequence(1, totalPages)}">
-                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
-                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
-                    </span>
-                            </div>
-                            <div class="col-sm-1">
-                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
-                                <span th:unless="${currentPage < totalPages}">Next</span>
-                            </div>
-                            <div class="col-sm-1">
-                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage}}">Last</a>
-                                <span th:unless="${currentPage < totalPages}">Last</span>
+                    <div class="row col-sm-10">
+                        <div class="col-sm-2">
+                            <span>Total Rows: [[${totalItems}]]</span>
+                        </div>
+                        <div class="pagination justify-content-center">
+                            <div >
+                                <a  th:href="@{'/page/seats/' + ${currentPage - 1}}">Prev</a><span> &nbsp;</span>
+                                    <span th:each ="i: ${#numbers.sequence(1, totalPages)}">
+                                    <a th:if="${currentPage != i}" th:href="@{'/page/seats/' + ${i}}">[[${i}]]</a>
+                                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;</span>
+                                <a  th:href="@{'/page/seats/' + ${currentPage + 1}}">Next</a>
+                                <a th:if="${currentPage < totalPages}" th:href="@{'/page/seats/' + ${totalPages}}">Last</a>
+
                             </div>
                         </div>
                     </div>
