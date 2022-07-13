@@ -91,7 +91,7 @@ public class SeatsControllerMVC {
         model.addAttribute("seats", seats);
         model.addAttribute("totalSeats", totalSeats);
 
-        return "seatsPage.html";
+        return "seatsPage";
 //        return findPaginatedSeats(1, model);
     }
 //

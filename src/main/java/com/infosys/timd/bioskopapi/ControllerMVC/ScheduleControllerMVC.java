@@ -106,6 +106,6 @@ public class ScheduleControllerMVC {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listSchdule", listSchdule);
-        return "/schedulePage";
+        return "schedulePage";
     }
 }

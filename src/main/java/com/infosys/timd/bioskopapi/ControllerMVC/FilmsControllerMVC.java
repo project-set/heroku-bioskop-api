@@ -115,7 +115,7 @@ public class FilmsControllerMVC {
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("listFilms", listFilms);
-        return "/film";
+        return "film";
     }
 }
 
