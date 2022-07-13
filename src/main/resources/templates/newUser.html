@@ -222,7 +222,7 @@
                 <div class="container-sm" >
                     <form action="#" th:action="@{/saveUser}" th:object="${user}" class="row g-3 needs-validation" novalidate method="post">
                         <ul>
-                            <div class="col-md-4" style="padding-top:20px">
+                            <div class="col-md-4">
                                 <label for="validationCustomUsername" class="form-label" style="color:white">Username</label>
                                 <div class="input-group has-validation">
                                     <span class="input-group-text" id="inputGroupPrepend">@</span>
@@ -232,14 +232,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4" style="padding-top:20px">
+                            <div class="col-md-4">
                                 <label for="validationCustom01" class="form-label" style="color:white" >E-Mail</label>
                                 <input th:field="*{emailId}" placeholder="User Email" type="text" class="form-control" id="validationCustom01" required>
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>
                             </div>
-                            <div class="col-md-4" style="padding-top:20px">
+                            <div class="col-md-4">
                                 <label for="validationCustom01" class="form-label" style="color:white">Password</label>
                                 <input th:field="*{password}" placeholder="User Password" type="password" class="form-control" id="validationCustom02" required>
                                 <div class="valid-feedback">
