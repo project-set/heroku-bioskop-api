@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -82,14 +83,14 @@ public class UserControllerMVC {
         return "usersPage";
     }
 
-    @PostMapping("/searchName")
-    public String search(User user, Model model, String name) {
-        if(name!=null) {
-            List<User> list = userServiceImplements.getUserByNameLike(user.getUsername());
+    @GetMapping("/search")
+    public String search(User user, Model model, String keyword) {
+        if(keyword!=null) {
+            List<User> list = userServiceImplements.getByKeyword(user.getUsername());
             model.addAttribute("list", list);
         }else {
             List<User> list = userServiceImplements.getAll();
             model.addAttribute("list", list);}
-        return "usersPage";
+        return "/usersPage";
     }
 }
